@@ -8,7 +8,7 @@ import {
 import { Feedback } from 'src/feedback/entities/feedback.entity';
 
 import { Post } from 'src/posts/entities';
-
+import { Comment } from 'src/comments/entities';
 @Table
 export class User extends Model<User> {
   @PrimaryKey
@@ -32,4 +32,7 @@ export class User extends Model<User> {
 
   @HasMany(() => Feedback)
   feedbacks: Feedback[];
+
+  @HasMany(() => Comment)
+  comments: Comment[];
 }
