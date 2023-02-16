@@ -5,26 +5,19 @@ import {
   ForeignKey,
   BelongsTo,
   PrimaryKey,
-  HasMany,
 } from 'sequelize-typescript';
 
 import { User } from 'src/users/entities/user.entity';
-import { Comment } from 'src/comments/entities/comment.entity';
+import { Post } from 'src/posts/entities/post.entity';
 
 @Table
-export class Post extends Model<Post> {
+export class Comment extends Model<Comment> {
   @PrimaryKey
   @Column
   id: number;
 
   @Column
-  title: string;
-
-  @Column
   content: string;
-
-  @Column
-  isApproved: boolean;
 
   @ForeignKey(() => User)
   @Column
@@ -33,6 +26,10 @@ export class Post extends Model<Post> {
   @BelongsTo(() => User)
   user: User;
 
-  @HasMany(() => Comment)
-  comments: Comment[];
+  @ForeignKey(() => Post)
+  @Column
+  postId: number;
+
+  @BelongsTo(() => Post)
+  post: Post;
 }

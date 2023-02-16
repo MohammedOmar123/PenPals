@@ -7,7 +7,7 @@ import {
 } from 'sequelize-typescript';
 
 import { Post } from 'src/posts/entities';
-
+import { Comment } from 'src/comments/entities';
 @Table
 export class User extends Model<User> {
   @PrimaryKey
@@ -28,4 +28,7 @@ export class User extends Model<User> {
 
   @HasMany(() => Post)
   posts: Post[];
+
+  @HasMany(() => Comment)
+  comments: Comment[];
 }

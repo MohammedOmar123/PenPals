@@ -1,22 +1,22 @@
 {
   "development": {
-    "username": "user1",
-    "password": "password",
-    "database": "penpal",
+    "username": "postgres",
+    "password": "root",
+    "database": "penpals",
     "host": "localhost",
     "dialect": "postgres"
   },
   "test": {
-    "username": "user1",
-    "password": "password",
-    "database": "penpal",
+    "username": "postgres",
+    "password": "root",
+    "database": "penpals",
     "host": "localhost",
     "dialect": "postgres"
   },
   "production": {
-    "username": "user1",
-    "password": "password",
-    "database": "penpal",
+    "username": "postgres",
+    "password": "root",
+    "database": "penpals",
     "host": "localhost",
     "dialect": "postgres"
   }
