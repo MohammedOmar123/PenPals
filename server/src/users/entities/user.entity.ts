@@ -5,6 +5,7 @@ import {
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
+import { Feedback } from 'src/feedback/entities/feedback.entity';
 
 import { Post } from 'src/posts/entities';
 
@@ -28,4 +29,7 @@ export class User extends Model<User> {
 
   @HasMany(() => Post)
   posts: Post[];
+
+  @HasMany(() => Feedback)
+  feedbacks: Feedback[];
 }
