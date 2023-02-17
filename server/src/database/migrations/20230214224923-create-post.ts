@@ -26,6 +26,27 @@ module.exports = {
         defaultValue: null,
       },
 
+      review: {
+        type: Sequelize.ARRAY(Sequelize.TEXT),
+        allowNull: true,
+      },
+
+      seen: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
+
+      projectId: {
+        type: Sequelize.BIGINT,
+        allowNull: false,
+        references: {
+          model: 'Projects',
+          key: 'id',
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      },
+
       userId: {
         type: Sequelize.BIGINT,
         allowNull: false,
