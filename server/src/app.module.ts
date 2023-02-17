@@ -9,6 +9,7 @@ import { PostsModule } from './posts/posts.module';
 import { ViewsModule } from './views/views.module';
 import { ProjectsModule } from './projects/projects.module';
 import { UserProjectModule } from './user-project/user-project.module';
+import { FeedbackModule } from './feedback/feedback.module';
 import { CommentsModule } from './comments/comments.module';
 import config from './database/connection';
 
@@ -24,6 +25,7 @@ import config from './database/connection';
     ViewsModule,
     ProjectsModule,
     UserProjectModule,
+    FeedbackModule,
     CommentsModule,
   ],
   controllers: [AppController],
