@@ -17,11 +17,23 @@ module.exports = {
         type: Sequelize.BIGINT,
         allowNull: false,
         references: {
-          model: 'users',
+          model: 'Users',
           key: 'id',
         },
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
+      },
+
+      createdAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: new Date(),
+      },
+
+      updatedAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: new Date(), // or Sequelize.literal('CURRENT_TIMESTAMP')
       },
     });
   },

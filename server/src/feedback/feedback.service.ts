@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { CreateFeedbackDto } from './dto/create-feedback.dto';
-import { UpdateFeedbackDto } from './dto/update-feedback.dto';
+
+import { CreateFeedbackDto, UpdateFeedbackDto } from './dto';
 import { Feedback } from './entities/feedback.entity';
 
 @Injectable()

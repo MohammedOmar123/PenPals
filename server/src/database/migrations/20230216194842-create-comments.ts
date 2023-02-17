@@ -9,10 +9,12 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.BIGINT,
       },
+
       content: {
         type: Sequelize.TEXT,
         allowNull: false,
       },
+
       userId: {
         type: Sequelize.BIGINT,
         allowNull: false,
@@ -23,6 +25,7 @@ module.exports = {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       },
+
       postId: {
         type: Sequelize.BIGINT,
         allowNull: false,
@@ -33,10 +36,12 @@ module.exports = {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
+
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
