@@ -7,8 +7,8 @@ import {
   PrimaryKey,
 } from 'sequelize-typescript';
 
-import { Post } from 'src/posts/entities';
-import { User } from 'src/users/entities';
+import { Post } from '../../posts/entities';
+import { User } from '../../users/entities';
 
 @Table
 export class View extends Model<View> {

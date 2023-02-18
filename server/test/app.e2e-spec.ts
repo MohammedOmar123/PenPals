@@ -1,24 +1,31 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
+import * as pactum from 'pactum';
 import { AppModule } from './../src/app.module';
 
-describe('AppController (e2e)', () => {
-  let app: INestApplication;
+let app: INestApplication;
 
-  beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
+beforeAll(async () => {
+  const moduleFixture: TestingModule = await Test.createTestingModule({
+    imports: [AppModule],
+  }).compile();
+  app = moduleFixture.createNestApplication();
+  await app.init();
+  await app.listen(4000);
+});
 
-    app = moduleFixture.createNestApplication();
-    await app.init();
+describe('Users', () => {
+  it('should return a list of users', async () => {
+    return pactum.spec().get('http://localhost:4000/users').expectStatus(200);
   });
+});
 
-  it('/ (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Hello World!');
+describe('Posts', () => {
+  it('should return a list of posts ', () => {
+    return pactum.spec().get('http://localhost:4000/posts').expectStatus(200);
   });
+});
+
+afterAll(async () => {
+  await app.close();
 });

@@ -5,10 +5,10 @@ import {
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
-import { Feedback } from 'src/feedback/entities/feedback.entity';
 
-import { Post } from 'src/posts/entities';
-import { Comment } from 'src/comments/entities';
+import { Feedback } from '../../feedback/entities';
+import { Post } from '../../posts/entities';
+import { Comment } from '../../comments/entities';
 @Table
 export class User extends Model<User> {
   @PrimaryKey

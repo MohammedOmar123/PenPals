@@ -8,8 +8,8 @@ import {
   HasMany,
 } from 'sequelize-typescript';
 
-import { User } from 'src/users/entities/user.entity';
-import { Comment } from 'src/comments/entities/comment.entity';
+import { User } from '../../users/entities';
+import { Comment } from '../../comments/entities';
 
 @Table
 export class Post extends Model<Post> {
