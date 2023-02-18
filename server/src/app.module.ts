@@ -19,6 +19,7 @@ import config from './database/connection';
       ...config,
       synchronize: true,
       autoLoadModels: true,
+      logging: false,
     }),
     UsersModule,
     PostsModule,

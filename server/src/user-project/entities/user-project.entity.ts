@@ -7,7 +7,7 @@ import {
   BelongsTo,
 } from 'sequelize-typescript';
 
-import { User } from 'src/users/entities';
+import { User } from '../../users/entities';
 import { Project } from '../../projects/entities';
 
 @Table
