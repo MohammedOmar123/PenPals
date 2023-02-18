@@ -1,3 +1,4 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
 import * as compression from 'compression';
@@ -9,6 +10,7 @@ async function bootstrap() {
   app.use(compression());
   app.enableCors();
   app.setGlobalPrefix('api/v1/');
+  app.useGlobalPipes(new ValidationPipe());
   await app.listen(8000);
 }
 bootstrap();

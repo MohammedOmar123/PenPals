@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-
 import { SequelizeModule } from '@nestjs/sequelize';
+import { ConfigModule } from '@nestjs/config';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -11,7 +11,8 @@ import { ProjectsModule } from './projects/projects.module';
 import { UserProjectModule } from './user-project/user-project.module';
 import { FeedbackModule } from './feedback/feedback.module';
 import { CommentsModule } from './comments/comments.module';
-import config from './database/connection';
+import { AuthModule } from './auth/auth.module';
+import config from './core/database/connection';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import config from './database/connection';
       autoLoadModels: true,
       logging: false,
     }),
+    ConfigModule.forRoot({ isGlobal: true }),
     UsersModule,
     PostsModule,
     ViewsModule,
@@ -28,6 +30,7 @@ import config from './database/connection';
     UserProjectModule,
     FeedbackModule,
     CommentsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
