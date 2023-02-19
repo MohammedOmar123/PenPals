@@ -1,5 +1,6 @@
 import {
   Column,
+  DataType,
   HasMany,
   Model,
   PrimaryKey,
@@ -12,11 +13,14 @@ import { Comment } from '../../comments/entities';
 @Table
 export class User extends Model<User> {
   @PrimaryKey
-  @Column
+  @Column({ autoIncrement: true })
   id: number;
 
   @Column
-  fullName: string;
+  firstName: string;
+
+  @Column
+  lastName: string;
 
   @Column
   email: string;
