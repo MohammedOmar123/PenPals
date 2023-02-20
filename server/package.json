@@ -24,9 +24,12 @@
     "test:migrations": "cross-env NODE_ENV=test npx sequelize-cli db:migrate",
     "undo:test:migrations": "cross-env NODE_ENV=test npx sequelize-cli db:migrate:undo:all",
     "undo:migrations": "cross-env NODE_ENV=test npx sequelize-cli db:migrate:undo",
-    "undo:all:migrations":"npx sequelize-cli db:migrate:undo:all"
+    "undo:all:migrations": "npx sequelize-cli db:migrate:undo:all",
+    "seed":"npx sequelize-cli db:seed:all",
+    "undo:seed":"npx sequelize-cli db:seed:undo:all"
   },
   "dependencies": {
+    "@faker-js/faker": "^7.6.0",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.3.1",
     "@nestjs/core": "^9.0.0",
