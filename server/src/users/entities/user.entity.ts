@@ -1,6 +1,5 @@
 import {
   Column,
-  DataType,
   HasMany,
   Model,
   PrimaryKey,
@@ -24,6 +23,9 @@ export class User extends Model<User> {
 
   @Column
   email: string;
+
+  @Column
+  image: string;
 
   @Column
   password: string;

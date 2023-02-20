@@ -2,7 +2,11 @@
 const { faker } = require('@faker-js/faker');
 
 const generateUsers = (num: number) => {
+<<<<<<< HEAD
   const users: any = [];
+=======
+  const users = [];
+>>>>>>> 05f717a196aff007b9a75007058678ecdb6bfa74
   for (let i = 0; i < num; i++) {
     const user = {
       firstName: faker.internet.userName(),
@@ -19,7 +23,11 @@ const generateUsers = (num: number) => {
 };
 
 const generateProjects = (num: number) => {
+<<<<<<< HEAD
   const projects: any = [];
+=======
+  const projects = [];
+>>>>>>> 05f717a196aff007b9a75007058678ecdb6bfa74
   for (let i = 0; i < num; i++) {
     const project = {
       year: faker.date.recent().getFullYear(),
@@ -50,7 +58,7 @@ const generatePosts = (num: number) => {
 };
 
 const generateViews = (num: number) => {
-  const views: any = [];
+  const views = [];
   for (let i = 0; i < num; i++) {
     const view = {
       postId: i + 1,
@@ -64,7 +72,7 @@ const generateViews = (num: number) => {
 };
 
 const generateUsersProject = (num: number) => {
-  const usersProject: any = [];
+  const usersProject = [];
   for (let i = 0; i < num; i++) {
     const view = {
       projectId: i + 1,
@@ -78,7 +86,7 @@ const generateUsersProject = (num: number) => {
 };
 
 const generateFeedback = (num: number) => {
-  const feedbacks: any = [];
+  const feedbacks = [];
   for (let i = 0; i < num; i++) {
     const feedback = {
       content: faker.lorem.sentence(2),
@@ -92,7 +100,7 @@ const generateFeedback = (num: number) => {
 };
 
 const generateComments = (num: number) => {
-  const comments: any = [];
+  const comments = [];
   for (let i = 0; i < num; i++) {
     const comment = {
       content: faker.lorem.sentence(2),

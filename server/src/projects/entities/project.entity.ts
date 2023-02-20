@@ -13,6 +13,9 @@ export class Project extends Model<Project> {
   id: number;
 
   @Column
+  name: string;
+
+  @Column
   year: string;
 
   @Column({
