@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { faker } = require('@faker-js/faker');
 
-const generateUsers = (num: number) => {
+const generateUsers = (num) => {
   const users = [];
   for (let i = 0; i < num; i++) {
     const user = {
@@ -18,7 +18,7 @@ const generateUsers = (num: number) => {
   return users;
 };
 
-const generateProjects = (num: number) => {
+const generateProjects = (num) => {
   const projects = [];
   for (let i = 0; i < num; i++) {
     const project = {
@@ -32,7 +32,7 @@ const generateProjects = (num: number) => {
   return projects;
 };
 
-const generatePosts = (num: number) => {
+const generatePosts = (num) => {
   const posts = [];
   for (let i = 0; i < num; i++) {
     const post = {
@@ -49,7 +49,7 @@ const generatePosts = (num: number) => {
   return posts;
 };
 
-const generateViews = (num: number) => {
+const generateViews = (num) => {
   const views = [];
   for (let i = 0; i < num; i++) {
     const view = {
@@ -63,7 +63,7 @@ const generateViews = (num: number) => {
   return views;
 };
 
-const generateUsersProject = (num: number) => {
+const generateUsersProject = (num) => {
   const usersProject = [];
   for (let i = 0; i < num; i++) {
     const view = {
@@ -77,7 +77,7 @@ const generateUsersProject = (num: number) => {
   return usersProject;
 };
 
-const generateFeedback = (num: number) => {
+const generateFeedback = (num) => {
   const feedbacks = [];
   for (let i = 0; i < num; i++) {
     const feedback = {
@@ -91,7 +91,7 @@ const generateFeedback = (num: number) => {
   return feedbacks;
 };
 
-const generateComments = (num: number) => {
+const generateComments = (num) => {
   const comments = [];
   for (let i = 0; i < num; i++) {
     const comment = {
