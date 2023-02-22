@@ -69,7 +69,11 @@ export class AuthService {
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) throw new ForbiddenException(INVALID_CREDENTIALS);
 
-    const accessToken = this.generateToken(user.id, user.email, user.role);
+    const accessToken = await this.generateToken(
+      user.id,
+      user.email,
+      user.role,
+    );
     return { accessToken };
   }
 
