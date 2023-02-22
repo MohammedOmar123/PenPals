@@ -13,7 +13,7 @@ import { Project } from '../../projects/entities';
 @Table
 export class UserProject extends Model<UserProject> {
   @PrimaryKey
-  @Column
+  @Column({ autoIncrement: true })
   id: number;
 
   @ForeignKey(() => User)

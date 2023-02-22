@@ -12,7 +12,7 @@ import { User } from '../../users/entities';
 @Table
 export class Feedback extends Model<Feedback> {
   @PrimaryKey
-  @Column
+  @Column({ autoIncrement: true })
   id: number;
 
   @Column

@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { CREATE_PROJECT } from '../core/constant';
 
 import { CreateProjectDto, UpdateProjectDto } from './dto';
 import { Project } from './entities';
@@ -10,8 +11,13 @@ export class ProjectsService {
     @InjectModel(Project) private projectRepository: typeof Project,
   ) {}
 
-  create(createProjectDto: CreateProjectDto) {
-    return 'This action adds a new project';
+  async create(dto: CreateProjectDto) {
+    await this.projectRepository.create({
+      name: dto.name,
+      year: dto.year,
+    });
+
+    return CREATE_PROJECT;
   }
 
   findAll() {
