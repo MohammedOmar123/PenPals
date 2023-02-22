@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <main>
       {/* Statistics section */}
-      <CustomSection title="إحصائيات عامة" className="my-12 w-[80%] m-auto">
+      <CustomSection title="إحصائيات عامة" className="my-12 px-8 w-[100%] m-auto">
         <StatisticsList />
       </CustomSection>
     </main>

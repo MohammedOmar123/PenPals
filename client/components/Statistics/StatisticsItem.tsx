@@ -17,7 +17,7 @@ const StatisticsItem = ({
   return (
     <div
       className={classNames(
-        "flex flex-col items-center justify-center rounded-xl min-w-[220px] min-h-[200px] [@media(min-width:2000px)]:min-h-[300px] [@media(min-width:3000px)]:min-w-[300px] gap-3 p-3 shadow-inner",
+        "flex flex-col items-center justify-center rounded-xl gap-2 px-3 py-6 shadow-inner",
         className
       )}
     >
