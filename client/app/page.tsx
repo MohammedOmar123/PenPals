@@ -1,12 +1,17 @@
 import Image from "next/image";
 import { Cairo } from "@next/font/google";
 import styles from "./page.module.css";
+import StatisticsList from "@/components/Statistics/StatisticsList";
+import CustomSection from "@/components/CustomSection";
 
 const Home = () => {
   return (
-    <h1 className="text-primary bg-light shadow-inner font-extrabold p-2">
-      مرحبا
-    </h1>
+    <main>
+      {/* Statistics section */}
+      <CustomSection title="إحصائيات عامة" className="my-12 w-[80%] m-auto">
+        <StatisticsList />
+      </CustomSection>
+    </main>
   );
 };
 export default Home;
