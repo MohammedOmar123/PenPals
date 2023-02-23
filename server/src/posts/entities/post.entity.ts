@@ -14,7 +14,7 @@ import { Comment } from '../../comments/entities';
 @Table
 export class Post extends Model<Post> {
   @PrimaryKey
-  @Column
+  @Column({ autoIncrement: true })
   id: number;
 
   @Column

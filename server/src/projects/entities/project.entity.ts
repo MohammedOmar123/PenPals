@@ -9,14 +9,14 @@ import {
 @Table
 export class Project extends Model<Project> {
   @PrimaryKey
-  @Column
+  @Column({ autoIncrement: true })
   id: number;
 
   @Column
   name: string;
 
   @Column
-  year: string;
+  year: number;
 
   @Column({
     type: DataType.ARRAY(DataType.STRING),
