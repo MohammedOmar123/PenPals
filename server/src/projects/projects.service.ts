@@ -17,7 +17,7 @@ export class ProjectsService {
       year: dto.year,
     });
 
-    return CREATE_PROJECT;
+    return { message: CREATE_PROJECT };
   }
 
   findAll() {

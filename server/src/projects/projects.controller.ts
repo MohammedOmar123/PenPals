@@ -10,10 +10,10 @@ import {
 } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto, UpdateProjectDto } from './dto';
-import { Roles } from 'src/auth/decrator';
-import { Role } from 'src/auth/enums/role.enum';
-import { JwtAuthGuard } from 'src/auth/strategy';
-import { RolesGuard } from 'src/auth/Guards/roles.guard';
+import { Roles } from '../auth/decrator';
+import { Role } from '../auth/enums/role.enum';
+import { JwtAuthGuard } from '../auth/strategy';
+import { RolesGuard } from '../auth/Guards/roles.guard';
 
 @Controller('projects')
 export class ProjectsController {
