@@ -4,6 +4,8 @@ const CREATED_ACCOUNT = 'تم إنشاء حسابك بنجاح';
 const INTERNAL_SERVER_ERROR_MESSAGE = 'حدث خطأ داخلي بالنظام ';
 const INVALID_CREDENTIALS = 'الإيميل او كلمة المرور غير صحيحة';
 const CREATE_PROJECT = 'تم إضافة المشروع بنجاح ';
+const CREATE_FEEDBACK = 'تم إضافة التعليق بنجاح';
+
 export {
   JWT_KEY,
   INVALID_EMAIL,
@@ -11,4 +13,5 @@ export {
   INTERNAL_SERVER_ERROR_MESSAGE,
   INVALID_CREDENTIALS,
   CREATE_PROJECT,
+  CREATE_FEEDBACK,
 };
