@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 
 import { CreateFeedbackDto, UpdateFeedbackDto } from './dto';
 import { Feedback } from './entities/feedback.entity';
+import { CREATE_FEEDBACK } from '../core/constant';
 
 @Injectable()
 export class FeedbackService {
@@ -10,8 +11,9 @@ export class FeedbackService {
     @InjectModel(Feedback) private feedbackRepository: typeof Feedback,
   ) {}
 
-  create(createFeedbackDto: CreateFeedbackDto) {
-    return 'This action adds a new feedback';
+  async create(dto: CreateFeedbackDto, userId: number) {
+    await this.feedbackRepository.create({ content: dto.content, userId });
+    return { message: CREATE_FEEDBACK };
   }
 
   findAll() {
