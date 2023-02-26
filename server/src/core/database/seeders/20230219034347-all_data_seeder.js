@@ -20,7 +20,33 @@ const insertData = async (queryInterface) => {
     const feedbacks = generateFeedback(10);
     const comments = generateComments(10);
 
-    await queryInterface.bulkInsert('Users', users, { transaction });
+    await queryInterface.bulkInsert(
+      'Users',
+      [
+        ...users,
+        {
+          firstName: 'Mohammed',
+          lastName: 'Omar',
+          email: 'mohammed@gmail.com',
+          password:
+            '$2a$10$uIHNhqCpliQWk8iAwucBNePhduBZNqu/euVYAFE1mjFvgoXYFdymu', //123456
+          role: 'admin',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          firstName: 'saif',
+          lastName: 'hayek',
+          email: 'saif@gmail.com',
+          password:
+            '$2a$10$uIHNhqCpliQWk8iAwucBNePhduBZNqu/euVYAFE1mjFvgoXYFdymu',
+          role: 'student',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      ],
+      { transaction },
+    );
     await queryInterface.bulkInsert('Projects', projects, { transaction });
     await queryInterface.bulkInsert('Posts', posts, { transaction });
     await queryInterface.bulkInsert('Views', views, { transaction });
