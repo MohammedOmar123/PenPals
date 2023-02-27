@@ -12,6 +12,8 @@ const generateUsers = (num) => {
       role: 'user',
       createdAt: new Date(),
       updatedAt: new Date(),
+      isConfirmed: true,
+      verifyToken: 'something',
     };
     users.push(user);
   }

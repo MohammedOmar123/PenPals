@@ -31,6 +31,8 @@ const insertData = async (queryInterface) => {
           password:
             '$2a$10$uIHNhqCpliQWk8iAwucBNePhduBZNqu/euVYAFE1mjFvgoXYFdymu', //123456
           role: 'admin',
+          isConfirmed: true,
+          verifyToken: 'something',
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -41,6 +43,8 @@ const insertData = async (queryInterface) => {
           password:
             '$2a$10$uIHNhqCpliQWk8iAwucBNePhduBZNqu/euVYAFE1mjFvgoXYFdymu',
           role: 'student',
+          isConfirmed: true,
+          verifyToken: 'something',
           createdAt: new Date(),
           updatedAt: new Date(),
         },

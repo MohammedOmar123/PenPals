@@ -7,16 +7,21 @@ import {
 import { InjectModel } from '@nestjs/sequelize';
 import { ConfigService } from '@nestjs/config/';
 import { JwtService } from '@nestjs/jwt';
-
+import * as nodemailer from 'nodemailer';
 import * as bcrypt from 'bcrypt';
-
 import { SignInDto, SignupDto } from './dto/';
 import { User } from '../users/entities';
+import { getVerificationPage } from '../core/verificationMailPage';
 import {
   JWT_KEY,
-  CREATED_ACCOUNT,
+  EMAIL,
+  PASS,
+  CHECK_EMAIL,
   INVALID_EMAIL,
+  SENDER,
   INVALID_CREDENTIALS,
+  EMAIL_VERIFICATION,
+  EMAIL_VERIFIED_SUCCESSFULLY,
 } from '../core/constant';
 
 @Injectable()
@@ -38,16 +43,35 @@ export class AuthService {
 
       const hashed = await bcrypt.hash(password, 10);
 
-      const { role, id } = await this.userRepository.create(
-        { ...dto, password: hashed, role: 'user' },
-        {
-          returning: ['id', 'role'],
-        },
-      );
+      const secretKey = this.configService.get(JWT_KEY);
+      const verifyToken = await this.jwtService.signAsync(email, {
+        secret: secretKey,
+      });
 
-      const accessToken = await this.generateToken(+id, email, role);
+      await this.userRepository.create({
+        ...dto,
+        password: hashed,
+        role: 'user',
+        verifyToken,
+      });
+
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: this.configService.get(EMAIL),
+          pass: this.configService.get(PASS),
+        },
+      });
+
+      await transporter.sendMail({
+        from: `"${SENDER}" <${this.configService.get(EMAIL)}>`,
+        to: email,
+        subject: EMAIL_VERIFICATION,
+        html: getVerificationPage(verifyToken),
+      });
+
       // response
-      return { accessToken, message: CREATED_ACCOUNT };
+      return { message: CHECK_EMAIL };
     } catch (error) {
       if (error instanceof HttpException) {
         throw error;
@@ -62,39 +86,41 @@ export class AuthService {
   async sigIn(dto: SignInDto) {
     const { email, password } = dto;
 
-    const user = await this.userRepository.findOne({ where: { email } });
+    const user = await this.userRepository.findOne({
+      where: { email, isConfirmed: true },
+    });
 
     if (!user) throw new ForbiddenException(INVALID_CREDENTIALS);
 
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) throw new ForbiddenException(INVALID_CREDENTIALS);
 
-    const accessToken = await this.generateToken(
-      user.id,
-      user.email,
-      user.role,
+    const secret = this.configService.get(JWT_KEY);
+    const accessToken = await this.jwtService.signAsync(
+      {
+        id: user.id,
+        email: user.id,
+        role: user.role,
+      },
+      {
+        expiresIn: '10d',
+        secret,
+      },
     );
     return { accessToken };
   }
 
-  // Helper function to create a token
-  async generateToken(
-    id: number,
-    email: string,
-    role: string,
-  ): Promise<string> {
-    const secretKey = this.configService.get(JWT_KEY);
-    const accessToken = await this.jwtService.signAsync(
+  async verifyEmail(verifyToken: string) {
+    const [user] = await this.userRepository.update(
       {
-        id,
-        email,
-        role,
+        isConfirmed: true,
       },
       {
-        expiresIn: '10d',
-        secret: secretKey,
+        where: { verifyToken },
       },
     );
-    return accessToken;
+
+    if (!user) throw new ForbiddenException();
+    return { message: EMAIL_VERIFIED_SUCCESSFULLY };
   }
 }

@@ -41,6 +41,17 @@ module.exports = {
         allowNull: false,
       },
 
+      verifyToken: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+
+      isConfirmed: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
+
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
