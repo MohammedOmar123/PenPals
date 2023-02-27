@@ -13,6 +13,7 @@ const LatestNotification = () => {
           status={e.status}
           postId={e.postId}
           type={e.type}
+          key={`${e.postId}${e.username}`}
           />
       )}
     </div>
