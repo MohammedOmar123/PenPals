@@ -33,6 +33,12 @@ export class User extends Model<User> {
   @Column
   role: string;
 
+  @Column
+  verifyToken: string;
+
+  @Column
+  isConfirmed: boolean;
+
   @HasMany(() => Post)
   posts: Post[];
 

@@ -4,13 +4,15 @@ import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
 import { ValidationPipe } from '@nestjs/common';
 
-import { CREATED_ACCOUNT, INVALID_EMAIL } from '../src/core/constant';
+import {
+  INVALID_EMAIL,
+  CHECK_EMAIL,
+  ADMIN_TOKEN,
+  STUDENT_TOKEN,
+  VERIFICATION_TOKEN,
+} from '../src/core/constant';
 
 let app: INestApplication;
-const adminToken =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIxIiwiZW1haWwiOiJtb2hhbW1lZEBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NzczNjU1MzEsImV4cCI6MTY3ODIyOTUzMX0.0CAr66OJZfkoBmW_x_o4sjGWzZ1TkPkudhs0e-V3Zrs';
-const studentToken =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyIiwiZW1haWwiOiJzYWlmQGdtYWlsLmNvbSIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNjc3MzY2ODcxLCJleHAiOjE2NzgyMzA4NzF9.5nej89I_ZfLaH7HhqYpYX6NtM3T55eOAlrwuphcVo8M';
 
 beforeAll(async () => {
   const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -46,8 +48,9 @@ describe('Auth', () => {
     it('should return 201 for valid inputs', async () => {
       const response = await request(app.getHttpServer())
         .post('/auth/sign-up')
-        .send({ ...body, email: 'mohammeqe3d@gmail.com' });
-      expect(response.body.message).toBe(CREATED_ACCOUNT);
+        .send({ ...body, email: 'mohammeqe3d@gmail.com' })
+        .expect(201);
+      expect(response.body.message).toBe(CHECK_EMAIL);
     });
 
     it('should return 400 when the user add same email again', async () => {
@@ -76,7 +79,7 @@ describe('Auth', () => {
     it('should return 201 for valid credentials', async () => {
       await request(app.getHttpServer())
         .post('/auth/sign-in')
-        .send({ email: 'mohammeqe3d@gmail.com', password: 'mohammed12345!' })
+        .send({ email: 'mohammed@gmail.com', password: '123456' })
         .expect(201);
     });
 
@@ -87,6 +90,20 @@ describe('Auth', () => {
         .expect(403);
     });
   });
+
+  describe('/auth/verify', () => {
+    it('should return 200 for verified email', async () => {
+      return await request(app.getHttpServer())
+        .get(`/auth/verify?token=${VERIFICATION_TOKEN}`)
+        .expect(200);
+    });
+  });
+
+  it('should return 403 for invalid email', async () => {
+    return await request(app.getHttpServer())
+      .get(`/auth/verify?token=${VERIFICATION_TOKEN}13`)
+      .expect(403);
+  });
 });
 
 // Projects
@@ -95,7 +112,7 @@ describe('Projects', () => {
     it('should return 201 for valid credentials and inputs', async () => {
       return request(app.getHttpServer())
         .post('/projects')
-        .set('Authorization', `Bearer ${adminToken}`)
+        .set('Authorization', `Bearer ${ADMIN_TOKEN}`)
         .send({
           name: 'بالعربية نرتفي ',
           year: 2001,
@@ -106,7 +123,7 @@ describe('Projects', () => {
     it('should return 400 when for bad inputs', async () => {
       return request(app.getHttpServer())
         .post('/projects')
-        .set('Authorization', `Bearer ${adminToken}`)
+        .set('Authorization', `Bearer ${ADMIN_TOKEN}`)
         .send({
           name: 'بالعربية نرتفي ',
         })
@@ -123,7 +140,7 @@ describe('Projects', () => {
     it('should return 403 for invalid credentials', async () => {
       return request(app.getHttpServer())
         .post('/projects')
-        .set('Authorization', `Bearer ${studentToken}`)
+        .set('Authorization', `Bearer ${STUDENT_TOKEN}`)
         .send({
           name: 'بالعربية نرتفي ',
           year: 2001,
@@ -142,7 +159,7 @@ describe('Feedback', () => {
     it('should return 201 for valid inputs', () => {
       return request(app.getHttpServer())
         .post('/feedback') // any valid token will work here
-        .set('Authorization', `Bearer ${studentToken}`)
+        .set('Authorization', `Bearer ${STUDENT_TOKEN}`)
         .send({ content: 'good work' })
         .expect(201);
     });
@@ -150,7 +167,7 @@ describe('Feedback', () => {
     it('should return 400 for bad inputs', () => {
       return request(app.getHttpServer())
         .post('/feedback') // any valid token will work here
-        .set('Authorization', `Bearer ${studentToken}`)
+        .set('Authorization', `Bearer ${STUDENT_TOKEN}`)
         .send({ content: 10 })
         .expect(400);
     });
