@@ -19,6 +19,8 @@ const INVALID_CREDENTIALS = 'الإيميل او كلمة المرور غير ص
 const CREATED_ACCOUNT = 'تم إنشاء حسابك بنجاح';
 const CREATE_PROJECT = 'تم إضافة المشروع بنجاح ';
 const CREATE_FEEDBACK = 'تم إضافة التعليق بنجاح';
+const UPDATE = 'تم التعديل بنجاح';
+
 
 // Authentication tokens
 const ADMIN_TOKEN =
@@ -36,6 +38,7 @@ export {
   INVALID_CREDENTIALS,
   CREATE_PROJECT,
   CREATE_FEEDBACK,
+  UPDATE,
   PASS,
   EMAIL,
   CHECK_EMAIL,

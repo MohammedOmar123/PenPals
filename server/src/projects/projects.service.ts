@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { CREATE_PROJECT } from '../core/constant';
+import { CREATE_PROJECT, UPDATE } from '../core/constant';
 
 import { CreateProjectDto, UpdateProjectDto } from './dto';
 import { Project } from './entities';
@@ -9,7 +9,7 @@ import { Project } from './entities';
 export class ProjectsService {
   constructor(
     @InjectModel(Project) private projectRepository: typeof Project,
-  ) {}
+  ) { }
 
   async create(dto: CreateProjectDto) {
     await this.projectRepository.create({
@@ -28,8 +28,14 @@ export class ProjectsService {
     return `This action returns a #${id} project`;
   }
 
-  update(id: number, updateProjectDto: UpdateProjectDto) {
-    return `This action updates a #${id} project`;
+  async update(id: number, dto: UpdateProjectDto) {
+    const [updated] = await this.projectRepository.update(dto, {
+      where: { id },
+    });
+
+    if (!updated) throw new NotFoundException('the project id does not exist');
+
+    return { message: UPDATE };
   }
 
   remove(id: number) {
