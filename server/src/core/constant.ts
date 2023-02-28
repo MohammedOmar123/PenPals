@@ -12,6 +12,8 @@ const INTERNAL_SERVER_ERROR_MESSAGE = 'حدث خطأ داخلي بالنظام '
 const INVALID_CREDENTIALS = 'الإيميل او كلمة المرور غير صحيحة';
 const CREATE_PROJECT = 'تم إضافة المشروع بنجاح ';
 const CREATE_FEEDBACK = 'تم إضافة التعليق بنجاح';
+const UPDATE = 'تم التعديل بنجاح';
+
 const ADMIN_TOKEN =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIxIiwiZW1haWwiOiJtb2hhbW1lZEBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NzczNjU1MzEsImV4cCI6MTY3ODIyOTUzMX0.0CAr66OJZfkoBmW_x_o4sjGWzZ1TkPkudhs0e-V3Zrs';
 const STUDENT_TOKEN =
@@ -27,6 +29,7 @@ export {
   INVALID_CREDENTIALS,
   CREATE_PROJECT,
   CREATE_FEEDBACK,
+  UPDATE,
   PASS,
   EMAIL,
   CHECK_EMAIL,
