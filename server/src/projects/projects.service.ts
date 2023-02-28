@@ -32,11 +32,10 @@ export class ProjectsService {
     const [updated] = await this.projectRepository.update(dto, {
       where: { id },
     });
-    console.log(updated);
-    if (updated) {
-      return { message: UPDATE }
-    }
-    throw new NotFoundException('the project id does not exist');
+
+    if (!updated) throw new NotFoundException('the project id does not exist');
+
+    return { message: UPDATE };
   }
 
   remove(id: number) {

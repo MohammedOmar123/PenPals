@@ -15,6 +15,7 @@ import { Roles } from '../auth/decrator';
 import { Role } from '../auth/enums/role.enum';
 import { JwtAuthGuard } from '../auth/strategy';
 import { RolesGuard } from '../auth/Guards/roles.guard';
+import { ParamValidationPipe } from 'src/core/pipes/ParamValidation.pipe';
 
 @Controller('projects')
 export class ProjectsController {
@@ -40,7 +41,10 @@ export class ProjectsController {
   @Roles(Role.Admin)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Patch(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateProjectDto) {
+  update(
+    @Param('id', ParamValidationPipe) id: number,
+    @Body() dto: UpdateProjectDto,
+  ) {
     return this.projectsService.update(id, dto);
   }
 
