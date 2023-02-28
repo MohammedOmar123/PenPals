@@ -2,10 +2,14 @@ import { Controller, Post, Body, Query, Get } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
 import { SignupDto, SignInDto, VerifyDto } from './dto';
+import { EmailServices } from './email.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly emailServices: EmailServices,
+  ) {}
 
   @Post('sign-up')
   signup(@Body() dto: SignupDto) {
@@ -19,6 +23,6 @@ export class AuthController {
 
   @Get('verify')
   verify(@Query() dto: VerifyDto) {
-    return this.authService.verifyEmail(dto.token);
+    return this.emailServices.verifyEmail(dto.token);
   }
 }

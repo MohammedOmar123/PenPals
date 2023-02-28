@@ -7,21 +7,16 @@ import {
 import { InjectModel } from '@nestjs/sequelize';
 import { ConfigService } from '@nestjs/config/';
 import { JwtService } from '@nestjs/jwt';
-import * as nodemailer from 'nodemailer';
 import * as bcrypt from 'bcrypt';
+
 import { SignInDto, SignupDto } from './dto/';
 import { User } from '../users/entities';
-import { getVerificationPage } from '../core/verificationMailPage';
+import { EmailServices } from './email.service';
 import {
   JWT_KEY,
-  EMAIL,
-  PASS,
   CHECK_EMAIL,
   INVALID_EMAIL,
-  SENDER,
   INVALID_CREDENTIALS,
-  EMAIL_VERIFICATION,
-  EMAIL_VERIFIED_SUCCESSFULLY,
 } from '../core/constant';
 
 @Injectable()
@@ -30,7 +25,9 @@ export class AuthService {
     @InjectModel(User) private userRepository: typeof User,
     private configService: ConfigService,
     private jwtService: JwtService,
+    private emailServices: EmailServices,
   ) {}
+
   async signup(dto: SignupDto) {
     try {
       const { email, password } = dto;
@@ -55,22 +52,8 @@ export class AuthService {
         verifyToken,
       });
 
-      const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: this.configService.get(EMAIL),
-          pass: this.configService.get(PASS),
-        },
-      });
+      await this.emailServices.sendMail(email, verifyToken);
 
-      await transporter.sendMail({
-        from: `"${SENDER}" <${this.configService.get(EMAIL)}>`,
-        to: email,
-        subject: EMAIL_VERIFICATION,
-        html: getVerificationPage(verifyToken),
-      });
-
-      // response
       return { message: CHECK_EMAIL };
     } catch (error) {
       if (error instanceof HttpException) {
@@ -108,19 +91,5 @@ export class AuthService {
       },
     );
     return { accessToken };
-  }
-
-  async verifyEmail(verifyToken: string) {
-    const [user] = await this.userRepository.update(
-      {
-        isConfirmed: true,
-      },
-      {
-        where: { verifyToken },
-      },
-    );
-
-    if (!user) throw new ForbiddenException();
-    return { message: EMAIL_VERIFIED_SUCCESSFULLY };
   }
 }

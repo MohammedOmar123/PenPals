@@ -7,10 +7,11 @@ import { AuthController } from './auth.controller';
 
 import { User } from '../users/entities';
 import { JwtStrategy } from './strategy/jwt.strategy';
+import { EmailServices } from './email.service';
 
 @Module({
   imports: [SequelizeModule.forFeature([User]), JwtModule],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, EmailServices],
 })
 export class AuthModule {}
