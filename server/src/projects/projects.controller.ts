@@ -7,7 +7,6 @@ import {
   Param,
   Delete,
   UseGuards,
-  ParseIntPipe,
 } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto, UpdateProjectDto } from './dto';
@@ -15,14 +14,13 @@ import { Roles } from '../auth/decrator';
 import { Role } from '../auth/enums/role.enum';
 import { JwtAuthGuard } from '../auth/strategy';
 import { RolesGuard } from '../auth/Guards/roles.guard';
-import { ParamValidationPipe } from 'src/core/pipes/ParamValidation.pipe';
+import { ParamValidationPipe } from '../core/pipes/ParamValidation.pipe';
 
+@Roles(Role.Admin)
+@UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('projects')
 export class ProjectsController {
-  constructor(private readonly projectsService: ProjectsService) { }
-
-  @Roles(Role.Admin)
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  constructor(private readonly projectsService: ProjectsService) {}
   @Post()
   create(@Body() createProjectDto: CreateProjectDto) {
     return this.projectsService.create(createProjectDto);
@@ -38,8 +36,6 @@ export class ProjectsController {
     return this.projectsService.findOne(+id);
   }
 
-  @Roles(Role.Admin)
-  @UseGuards(JwtAuthGuard, RolesGuard)
   @Patch(':id')
   update(
     @Param('id', ParamValidationPipe) id: number,
