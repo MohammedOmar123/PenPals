@@ -10,6 +10,7 @@ import {
 
 import { User } from '../../users/entities';
 import { Comment } from '../../comments/entities';
+import { Notification } from '../../notifications/entities/notification.entity';
 
 @Table
 export class Post extends Model<Post> {
@@ -35,4 +36,7 @@ export class Post extends Model<Post> {
 
   @HasMany(() => Comment)
   comments: Comment[];
+
+  @HasMany(() => Notification)
+  notifications: Notification[];
 }
