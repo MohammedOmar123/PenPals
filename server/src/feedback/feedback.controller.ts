@@ -11,19 +11,19 @@ import {
 import { FeedbackService } from './feedback.service';
 import { CreateFeedbackDto, UpdateFeedbackDto } from './dto/';
 import { JwtAuthGuard } from '../auth/strategy';
-import { GetUser } from '../auth/decrator';
+import { GetUser } from '../auth/decorators';
 
+import { ParamValidationPipe } from 'src/core/pipes/ParamValidation.pipe';
+@UseGuards(JwtAuthGuard)
 @Controller('feedback')
 export class FeedbackController {
   constructor(private readonly feedbackService: FeedbackService) {}
-
-  @UseGuards(JwtAuthGuard)
   @Post()
   create(
     @Body() createFeedbackDto: CreateFeedbackDto,
-    @GetUser() userId: number,
+    @GetUser() { userId }: { userId: number },
   ) {
-    return this.feedbackService.create(createFeedbackDto, +userId);
+    return this.feedbackService.create(createFeedbackDto, userId);
   }
 
   @Get()
@@ -38,10 +38,11 @@ export class FeedbackController {
 
   @Patch(':id')
   update(
-    @Param('id') id: string,
-    @Body() updateFeedbackDto: UpdateFeedbackDto,
+    @Param('id', ParamValidationPipe) id: number,
+    @Body() dto: UpdateFeedbackDto,
+    @GetUser() user: { userId: number; role: string },
   ) {
-    return this.feedbackService.update(+id, updateFeedbackDto);
+    return this.feedbackService.update(id, user, dto);
   }
 
   @Delete(':id')
