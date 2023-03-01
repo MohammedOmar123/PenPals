@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto, UpdateProjectDto } from './dto';
-import { Roles } from '../auth/decrator';
+import { Roles } from '../auth/decorators';
 import { Role } from '../auth/enums/role.enum';
 import { JwtAuthGuard } from '../auth/strategy';
 import { RolesGuard } from '../auth/Guards/roles.guard';
@@ -45,7 +45,7 @@ export class ProjectsController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.projectsService.remove(+id);
+  remove(@Param('id', ParamValidationPipe) id: number) {
+    return this.projectsService.remove(id);
   }
 }
