@@ -9,6 +9,7 @@ import {
   UseGuards,
   UseInterceptors,
   CacheInterceptor,
+  CacheTTL,
 } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto, UpdateProjectDto } from './dto';
@@ -30,6 +31,7 @@ export class ProjectsController {
   }
 
   @Get()
+  @CacheTTL(60)
   findAll() {
     return this.projectsService.findAll();
   }

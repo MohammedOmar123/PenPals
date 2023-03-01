@@ -8,6 +8,7 @@ import {
   Delete,
   UseInterceptors,
   CacheInterceptor,
+  CacheTTL,
 } from '@nestjs/common';
 import { NotificationsService } from './notifications.service';
 import { CreateNotificationDto } from './dto/create-notification.dto';
@@ -24,6 +25,7 @@ export class NotificationsController {
   }
 
   @Get()
+  @CacheTTL(60)
   findAll() {
     return this.notificationsService.findAll();
   }

@@ -8,6 +8,7 @@ import {
   Delete,
   UseInterceptors,
   CacheInterceptor,
+  CacheTTL,
 } from '@nestjs/common';
 import { ViewsService } from './views.service';
 import { CreateViewDto, UpdateViewDto } from './dto';
@@ -23,6 +24,7 @@ export class ViewsController {
   }
 
   @Get()
+  @CacheTTL(60)
   findAll() {
     return this.viewsService.findAll();
   }

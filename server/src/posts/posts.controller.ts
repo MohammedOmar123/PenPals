@@ -9,6 +9,7 @@ import {
   UseGuards,
   CacheInterceptor,
   UseInterceptors,
+  CacheTTL,
 } from '@nestjs/common';
 
 import { PostsService } from './posts.service';
@@ -32,6 +33,7 @@ export class PostsController {
   }
 
   @Get()
+  @CacheTTL(60)
   findAll() {
     return this.postsService.findAll();
   }

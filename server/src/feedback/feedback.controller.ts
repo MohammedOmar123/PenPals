@@ -9,6 +9,7 @@ import {
   UseGuards,
   CacheInterceptor,
   UseInterceptors,
+  CacheTTL,
 } from '@nestjs/common';
 import { FeedbackService } from './feedback.service';
 import { CreateFeedbackDto, UpdateFeedbackDto } from './dto/';
@@ -30,6 +31,7 @@ export class FeedbackController {
   }
 
   @Get()
+  @CacheTTL(60)
   findAll() {
     return this.feedbackService.findAll();
   }

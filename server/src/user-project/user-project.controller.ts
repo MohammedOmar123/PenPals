@@ -8,6 +8,7 @@ import {
   Delete,
   UseInterceptors,
   CacheInterceptor,
+  CacheTTL,
 } from '@nestjs/common';
 import { UserProjectService } from './user-project.service';
 import { CreateUserProjectDto, UpdateUserProjectDto } from './dto';
@@ -23,6 +24,7 @@ export class UserProjectController {
   }
 
   @Get()
+  @CacheTTL(60)
   findAll() {
     return this.userProjectService.findAll();
   }

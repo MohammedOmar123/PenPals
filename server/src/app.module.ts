@@ -26,7 +26,6 @@ import config from './core/database/connection';
     ConfigModule.forRoot({ isGlobal: true }),
     CacheModule.register({
       isGlobal: true,
-      ttl: 60, //All cached data has its own expiration time    "1 min"
     }),
     UsersModule,
     PostsModule,

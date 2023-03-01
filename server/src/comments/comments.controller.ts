@@ -8,6 +8,7 @@ import {
   Delete,
   CacheInterceptor,
   UseInterceptors,
+  CacheTTL,
 } from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { CreateCommentDto, UpdateCommentDto } from './dto';
@@ -23,6 +24,7 @@ export class CommentsController {
   }
 
   @Get()
+  @CacheTTL(60)
   findAll() {
     return this.commentsService.findAll();
   }
