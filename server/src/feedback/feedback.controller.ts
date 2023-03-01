@@ -13,7 +13,7 @@ import { CreateFeedbackDto, UpdateFeedbackDto } from './dto/';
 import { JwtAuthGuard } from '../auth/strategy';
 import { GetUser } from '../auth/decorators';
 
-import { ParamValidationPipe } from 'src/core/pipes/ParamValidation.pipe';
+import { ParamValidationPipe } from '../core/pipes/ParamValidation.pipe';
 @UseGuards(JwtAuthGuard)
 @Controller('feedback')
 export class FeedbackController {
