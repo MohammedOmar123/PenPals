@@ -21,7 +21,6 @@ const CREATE_PROJECT = 'تم إضافة المشروع بنجاح ';
 const CREATE_FEEDBACK = 'تم إضافة التعليق بنجاح';
 const UPDATE = 'تم التعديل بنجاح';
 
-
 // Authentication tokens
 const ADMIN_TOKEN =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIxIiwiZW1haWwiOiJtb2hhbW1lZEBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NzczNjU1MzEsImV4cCI6MTY3ODIyOTUzMX0.0CAr66OJZfkoBmW_x_o4sjGWzZ1TkPkudhs0e-V3Zrs';

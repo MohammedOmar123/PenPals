@@ -6,11 +6,14 @@ import {
   Patch,
   Param,
   Delete,
+  UseInterceptors,
+  CacheInterceptor,
 } from '@nestjs/common';
 import { UserProjectService } from './user-project.service';
 import { CreateUserProjectDto, UpdateUserProjectDto } from './dto';
 
 @Controller('user-project')
+@UseInterceptors(CacheInterceptor)
 export class UserProjectController {
   constructor(private readonly userProjectService: UserProjectService) {}
 

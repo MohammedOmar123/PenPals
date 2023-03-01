@@ -4,7 +4,7 @@ import {
   MaxLength,
   IsArray,
   IsString,
-  IsOptional
+  IsOptional,
 } from 'class-validator';
 
 export class CreateProjectDto {

@@ -9,7 +9,7 @@ import { Project } from './entities';
 export class ProjectsService {
   constructor(
     @InjectModel(Project) private projectRepository: typeof Project,
-  ) { }
+  ) {}
 
   async create(dto: CreateProjectDto) {
     await this.projectRepository.create({

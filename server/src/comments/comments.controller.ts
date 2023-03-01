@@ -6,11 +6,14 @@ import {
   Patch,
   Param,
   Delete,
+  CacheInterceptor,
+  UseInterceptors,
 } from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { CreateCommentDto, UpdateCommentDto } from './dto';
 
 @Controller('comments')
+@UseInterceptors(CacheInterceptor)
 export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 

@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   UseGuards,
+  UseInterceptors,
+  CacheInterceptor,
 } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto, UpdateProjectDto } from './dto';
@@ -19,6 +21,7 @@ import { ParamValidationPipe } from '../core/pipes/ParamValidation.pipe';
 @Roles(Role.Admin)
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('projects')
+@UseInterceptors(CacheInterceptor)
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
   @Post()

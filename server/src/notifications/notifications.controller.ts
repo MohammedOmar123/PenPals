@@ -6,12 +6,15 @@ import {
   Patch,
   Param,
   Delete,
+  UseInterceptors,
+  CacheInterceptor,
 } from '@nestjs/common';
 import { NotificationsService } from './notifications.service';
 import { CreateNotificationDto } from './dto/create-notification.dto';
 import { UpdateNotificationDto } from './dto/update-notification.dto';
 
 @Controller('notifications')
+@UseInterceptors(CacheInterceptor)
 export class NotificationsController {
   constructor(private readonly notificationsService: NotificationsService) {}
 

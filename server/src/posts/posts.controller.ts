@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   UseGuards,
+  CacheInterceptor,
+  UseInterceptors,
 } from '@nestjs/common';
 
 import { PostsService } from './posts.service';
@@ -16,6 +18,7 @@ import { RolesGuard } from '../auth/Guards/roles.guard';
 import { Roles, GetUser } from '../auth/decrator';
 import { Role } from '../auth/enums/role.enum';
 @Controller('posts')
+@UseInterceptors(CacheInterceptor)
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
   // this means that admin and students who are allowed to add posts

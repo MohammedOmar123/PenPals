@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   UseGuards,
+  CacheInterceptor,
+  UseInterceptors,
 } from '@nestjs/common';
 import { FeedbackService } from './feedback.service';
 import { CreateFeedbackDto, UpdateFeedbackDto } from './dto/';
@@ -14,6 +16,7 @@ import { JwtAuthGuard } from '../auth/strategy';
 import { GetUser } from '../auth/decrator';
 
 @Controller('feedback')
+@UseInterceptors(CacheInterceptor)
 export class FeedbackController {
   constructor(private readonly feedbackService: FeedbackService) {}
 
