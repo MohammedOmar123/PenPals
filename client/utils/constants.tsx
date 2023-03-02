@@ -30,3 +30,26 @@ export const statistics: IStatisticsItem[] = [
     value: 998,
   },
 ];
+
+export const arabicRegister = {
+  firstName: "الاسم الأول",
+  lastName: "الاسم الأخير",
+  email: "البريد الالكتروني",
+  password: "كلمة المرور",
+  confirmPassword: "تأكيد كلمة المرور",
+  register: "تسجيل حساب",
+  login: "تسجيل الدخول",
+  alreadyHaveAccount: 'لديك حساب بالفعل؟',
+  validationMessages:{
+    requiredFirstName: "الرجاء إدخال الاسم الأول",
+    requiredLastName: "الرجاء إدخال الاسم الأخير",
+    requiredEmail: "الرجاء إدخال البريد الإلكتروني",
+    requiredPassword: "الرجاء إدخال كلمة المرور",
+    requiredConfirmPassword: "الرجاء إدخال تأكيد كلمة المرور",
+    invalidEmail: "البريد الالكتروني غير صحيح",
+    invalidPassword: "كلمة المرور غير صحيحة",
+    invalidConfirmPassword: "تأكيد كلمة المرور غير صحيح",
+    passwordNotMatch: "كلمة المرور غير متطابقة",
+    minLengthPassword: "كلمة المرور يجب أن تحتوي على 6 أحرف على الأقل"
+  }
+};
