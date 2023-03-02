@@ -148,6 +148,96 @@ describe('Projects', () => {
         .expect(403);
     });
   });
+
+  describe('PATCH api/v1/projects/:id', () => {
+    it('should return 200 for valid credentials', async () => {
+      return request(app.getHttpServer())
+        .patch('/projects/2')
+        .set('Authorization', `Bearer ${ADMIN_TOKEN}`)
+        .send({
+          name: 'test',
+          year: 2005,
+        })
+        .expect(200);
+    });
+
+    it('should return 403 for invalid credentials', async () => {
+      return request(app.getHttpServer())
+        .patch('/projects/2')
+        .set('Authorization', `Bearer ${STUDENT_TOKEN}`)
+        .send({
+          name: 'test',
+          year: 2005,
+        })
+        .expect(403);
+    });
+
+    it('should return 401 for unauthorized users', async () => {
+      return request(app.getHttpServer())
+        .patch('/projects/2')
+        .send({
+          name: 'test',
+          year: 2005,
+        })
+        .expect(401);
+    });
+
+    it('should return 404 for non-existent projects', async () => {
+      return request(app.getHttpServer())
+        .patch('/projects/500')
+        .set('Authorization', `Bearer ${ADMIN_TOKEN}`)
+        .send({
+          name: 'test',
+          year: 2005,
+        })
+        .expect(404);
+    });
+
+    it('should return 400 for invalid params', async () => {
+      return request(app.getHttpServer())
+        .patch('/projects/a')
+        .set('Authorization', `Bearer ${ADMIN_TOKEN}`)
+        .send({
+          name: 'test',
+          year: 2005,
+        })
+        .expect(400);
+    });
+  });
+
+  describe('delete api/v1/projects/:id', () => {
+    it('should return 200 for valid credentials', async () => {
+      return request(app.getHttpServer())
+        .delete('/projects/2')
+        .set('Authorization', `Bearer ${ADMIN_TOKEN}`)
+        .expect(200);
+    });
+
+    it('should return 403 for invalid credentials', async () => {
+      return request(app.getHttpServer())
+        .delete('/projects/2')
+        .set('Authorization', `Bearer ${STUDENT_TOKEN}`)
+        .expect(403);
+    });
+
+    it('should return 401 for unauthorized users', async () => {
+      return request(app.getHttpServer()).delete('/projects/2').expect(401);
+    });
+
+    it('should return 404 for non-existent projects', async () => {
+      return request(app.getHttpServer())
+        .delete('/projects/500')
+        .set('Authorization', `Bearer ${ADMIN_TOKEN}`)
+        .expect(404);
+    });
+
+    it('should return 400 for invalid params', async () => {
+      return request(app.getHttpServer())
+        .delete('/projects/a')
+        .set('Authorization', `Bearer ${ADMIN_TOKEN}`)
+        .expect(400);
+    });
+  });
 });
 
 describe('Feedback', () => {
@@ -169,6 +259,67 @@ describe('Feedback', () => {
         .post('/feedback') // any valid token will work here
         .set('Authorization', `Bearer ${STUDENT_TOKEN}`)
         .send({ content: 10 })
+        .expect(400);
+    });
+  });
+
+  describe('PATCH api/v1/feedback/:id', () => {
+    it('should return 200 for valid credentials', async () => {
+      return request(app.getHttpServer())
+        .patch('/feedback/2')
+        .set('Authorization', `Bearer ${ADMIN_TOKEN}`)
+        .send({
+          content: 'this is a new feedback',
+        })
+        .expect(200);
+    });
+
+    it('should return 200 for valid credentials', async () => {
+      return request(app.getHttpServer())
+        .patch('/feedback/11')
+        .set('Authorization', `Bearer ${STUDENT_TOKEN}`)
+        .send({
+          content: 'this is a new feedback',
+        })
+        .expect(200);
+    });
+
+    it('should return 404 for invalid credentials', async () => {
+      return request(app.getHttpServer())
+        .patch('/feedback/2')
+        .set('Authorization', `Bearer ${STUDENT_TOKEN}`)
+        .send({
+          content: 'this is a new feedback',
+        })
+        .expect(404);
+    });
+
+    it('should return 401 when for unauthorized users', async () => {
+      return request(app.getHttpServer())
+        .patch('/feedback/2')
+        .send({
+          content: 'this is a new feedback',
+        })
+        .expect(401);
+    });
+
+    it('should return 404 for non-existent feedback', async () => {
+      return request(app.getHttpServer())
+        .patch('/feedback/500')
+        .set('Authorization', `Bearer ${ADMIN_TOKEN}`)
+        .send({
+          content: 'this is a new feedback',
+        })
+        .expect(404);
+    });
+
+    it('should return 400 for invalid params', async () => {
+      return request(app.getHttpServer())
+        .patch('/feedback/a')
+        .set('Authorization', `Bearer ${ADMIN_TOKEN}`)
+        .send({
+          content: 'this is a new feedback',
+        })
         .expect(400);
     });
   });
