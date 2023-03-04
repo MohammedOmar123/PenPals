@@ -92,10 +92,10 @@ describe('Auth', () => {
   });
 
   describe('/auth/verify', () => {
-    it('should return 200 for verified email', async () => {
+    it('should return 301 for verified email', async () => {
       return await request(app.getHttpServer())
         .get(`/auth/verify?token=${VERIFICATION_TOKEN}`)
-        .expect(200);
+        .expect(301);
     });
   });
 

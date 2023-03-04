@@ -1,7 +1,7 @@
-import { Controller, Post, Body, Query, Get } from '@nestjs/common';
+import { Controller, Post, Body, Query, Get, Redirect } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
-import { SignupDto, SignInDto, VerifyDto } from './dto';
+import { SignupDto, SignInDto, VerifyDto, ResendEmailDto } from './dto';
 import { EmailServices } from './email.service';
 
 @Controller('auth')
@@ -22,7 +22,13 @@ export class AuthController {
   }
 
   @Get('verify')
+  @Redirect('', 301)
   verify(@Query() dto: VerifyDto) {
     return this.emailServices.verifyEmail(dto.token);
+  }
+
+  @Post('resendEmail')
+  resendEmail(@Body() dto: ResendEmailDto) {
+    return this.emailServices.resendMail(dto.email);
   }
 }

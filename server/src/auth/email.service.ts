@@ -1,6 +1,7 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { ConfigService } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
 
 import * as nodemailer from 'nodemailer';
 
@@ -11,7 +12,9 @@ import {
   PASS,
   SENDER,
   EMAIL_VERIFICATION,
-  EMAIL_VERIFIED_SUCCESSFULLY,
+  CLIENT_URL,
+  JWT_KEY,
+  RESEND_EMAIL,
 } from '../core/constant';
 
 @Injectable()
@@ -20,6 +23,7 @@ export class EmailServices {
 
   constructor(
     private configService: ConfigService,
+    private jwtServices: JwtService,
     @InjectModel(User) private userRepository: typeof User,
   ) {
     this.transporter = nodemailer.createTransport({
@@ -51,6 +55,16 @@ export class EmailServices {
     );
 
     if (!affectedRows) throw new ForbiddenException();
-    return { message: EMAIL_VERIFIED_SUCCESSFULLY };
+    // When returning something here, it will override the value in @Redirect()
+    return { url: this.configService.get(CLIENT_URL) };
+  }
+
+  async resendMail(email: string) {
+    const secret = this.configService.get(JWT_KEY);
+    const verifyToken = await this.jwtServices.signAsync(email, {
+      secret,
+    });
+    await this.sendMail(email, verifyToken);
+    return { message: RESEND_EMAIL };
   }
 }

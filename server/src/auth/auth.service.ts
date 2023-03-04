@@ -40,9 +40,9 @@ export class AuthService {
 
       const hashed = await bcrypt.hash(password, 10);
 
-      const secretKey = this.configService.get(JWT_KEY);
+      const secret = this.configService.get(JWT_KEY);
       const verifyToken = await this.jwtService.signAsync(email, {
-        secret: secretKey,
+        secret,
       });
 
       await this.userRepository.create({

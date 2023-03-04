@@ -1,5 +1,6 @@
 // JWT Constants
 const JWT_KEY = 'JWT_KEY';
+const CLIENT_URL = 'CLIENT_URL';
 
 // Email constants
 const EMAIL = 'EMAIL';
@@ -10,6 +11,7 @@ const EMAIL_VERIFICATION = 'التحقق من بريدك الإلكتروني �
 const EMAIL_VERIFIED_SUCCESSFULLY = 'تم تفعيل  البريد الإلكتروني بنجاح ';
 const SENDER = 'بالعربية نرتقي';
 const INVALID_EMAIL = 'الإيميل مستخدم مسبقا.الرجاء استخدام إيميل جديد';
+const RESEND_EMAIL = 'لقد تم إرسال البريد الإلكتروني مرة آخرى';
 
 // Error messages
 const INTERNAL_SERVER_ERROR_MESSAGE = 'حدث خطأ داخلي بالنظام ';
@@ -48,4 +50,6 @@ export {
   ADMIN_TOKEN,
   STUDENT_TOKEN,
   VERIFICATION_TOKEN,
+  CLIENT_URL,
+  RESEND_EMAIL,
 };
