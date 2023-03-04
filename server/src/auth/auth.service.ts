@@ -18,7 +18,6 @@ import {
   CHECK_EMAIL,
   INVALID_EMAIL,
   INVALID_CREDENTIALS,
-  EMAIL_IS_NOT_CONFIRMED,
 } from '../core/constant';
 
 @Injectable()
@@ -90,8 +89,7 @@ export class AuthService {
     });
 
     if (!user) throw new ForbiddenException(INVALID_CREDENTIALS);
-    if (!user.isConfirmed)
-      throw new EmailNotConfirmedException(EMAIL_IS_NOT_CONFIRMED, 422);
+    if (!user.isConfirmed) throw new EmailNotConfirmedException();
 
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) throw new ForbiddenException(INVALID_CREDENTIALS);

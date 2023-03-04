@@ -55,6 +55,14 @@ describe('Auth', () => {
       expect(response.body.message).toBe(CHECK_EMAIL);
     });
 
+    it('should return 201 for valid inputs', async () => {
+      const response = await request(app.getHttpServer())
+        .post('/auth/sign-up')
+        .send({ ...body, email: 'mohammedOmar123@gmail.com' })
+        .expect(201);
+      expect(response.body.message).toBe(CHECK_EMAIL);
+    });
+
     it('should return 400 when the user add same email again', async () => {
       const response = await request(app.getHttpServer())
         .post('/auth/sign-up')
@@ -83,6 +91,13 @@ describe('Auth', () => {
         .post('/auth/sign-in')
         .send({ email: 'mohammed@gmail.com', password: '123456' })
         .expect(201);
+    });
+
+    it('should return 422 for Not confirmed Email', async () => {
+      await request(app.getHttpServer())
+        .post('/auth/sign-in')
+        .send({ email: 'mohammedOmar123@gmail.com', password: '123456' })
+        .expect(422);
     });
 
     it('should return 403 for invalid credentials ', async () => {
