@@ -43,7 +43,7 @@ module.exports = {
 
       verifyToken: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
 
       isConfirmed: {

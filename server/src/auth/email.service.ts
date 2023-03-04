@@ -56,7 +56,8 @@ export class EmailServices {
 
     if (!affectedRows) throw new ForbiddenException();
     // When returning something here, it will override the value in @Redirect()
-    return { url: this.configService.get(CLIENT_URL) };
+    const url = this.configService.get(CLIENT_URL);
+    return url;
   }
 
   async resendMail(email: string) {
