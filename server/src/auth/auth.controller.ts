@@ -36,12 +36,12 @@ export class AuthController {
       .redirect(url);
   }
 
-  @Post('resendEmail')
+  @Post('resend-email')
   resendEmail(@Body() dto: ResendEmailDto) {
     return this.emailServices.resendMail(dto.email);
   }
 
-  @Get('sign-out')
+  @Post('sign-out')
   signOut(@Res() res: Response) {
     res.clearCookie('token');
     return { message: LOGOUT };
