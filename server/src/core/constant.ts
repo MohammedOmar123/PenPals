@@ -1,5 +1,6 @@
 // JWT Constants
 const JWT_KEY = 'JWT_KEY';
+const CLIENT_URL = 'CLIENT_URL';
 
 // Email constants
 const EMAIL = 'EMAIL';
@@ -10,6 +11,8 @@ const EMAIL_VERIFICATION = 'التحقق من بريدك الإلكتروني �
 const EMAIL_VERIFIED_SUCCESSFULLY = 'تم تفعيل  البريد الإلكتروني بنجاح ';
 const SENDER = 'بالعربية نرتقي';
 const INVALID_EMAIL = 'الإيميل مستخدم مسبقا.الرجاء استخدام إيميل جديد';
+const RESEND_EMAIL = 'لقد تم إرسال البريد الإلكتروني مرة آخرى';
+const EMAIL_IS_NOT_CONFIRMED = 'لم يتم تأكيد البريد الإلكتروني';
 
 // Error messages
 const INTERNAL_SERVER_ERROR_MESSAGE = 'حدث خطأ داخلي بالنظام ';
@@ -20,7 +23,9 @@ const CREATED_ACCOUNT = 'تم إنشاء حسابك بنجاح';
 const CREATE_PROJECT = 'تم إضافة المشروع بنجاح ';
 const DELETE_project = 'تم حذف المشروع بنجاح';
 const CREATE_FEEDBACK = 'تم إضافة التعليق بنجاح';
+const LOGOUT = 'تم تسجيل الخروج';
 const UPDATE = 'تم التعديل بنجاح';
+const LOGIN = 'تم تسجيل الدخول بنجاح';
 
 // Authentication tokens
 const ADMIN_TOKEN =
@@ -48,4 +53,9 @@ export {
   ADMIN_TOKEN,
   STUDENT_TOKEN,
   VERIFICATION_TOKEN,
+  CLIENT_URL,
+  RESEND_EMAIL,
+  EMAIL_IS_NOT_CONFIRMED,
+  LOGOUT,
+  LOGIN,
 };
