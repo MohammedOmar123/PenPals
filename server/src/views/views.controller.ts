@@ -6,11 +6,15 @@ import {
   Patch,
   Param,
   Delete,
+  UseInterceptors,
+  CacheInterceptor,
+  CacheTTL,
 } from '@nestjs/common';
 import { ViewsService } from './views.service';
 import { CreateViewDto, UpdateViewDto } from './dto';
 
 @Controller('views')
+@UseInterceptors(CacheInterceptor)
 export class ViewsController {
   constructor(private readonly viewsService: ViewsService) {}
 
@@ -20,6 +24,7 @@ export class ViewsController {
   }
 
   @Get()
+  @CacheTTL(60)
   findAll() {
     return this.viewsService.findAll();
   }

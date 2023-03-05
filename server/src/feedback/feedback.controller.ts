@@ -7,6 +7,9 @@ import {
   Param,
   Delete,
   UseGuards,
+  CacheInterceptor,
+  UseInterceptors,
+  CacheTTL,
 } from '@nestjs/common';
 import { FeedbackService } from './feedback.service';
 import { CreateFeedbackDto, UpdateFeedbackDto } from './dto/';
@@ -16,6 +19,7 @@ import { GetUser } from '../auth/decorators';
 import { ParamValidationPipe } from '../core/pipes/ParamValidation.pipe';
 @UseGuards(JwtAuthGuard)
 @Controller('feedback')
+@UseInterceptors(CacheInterceptor)
 export class FeedbackController {
   constructor(private readonly feedbackService: FeedbackService) {}
   @Post()
@@ -27,6 +31,7 @@ export class FeedbackController {
   }
 
   @Get()
+  @CacheTTL(60)
   findAll() {
     return this.feedbackService.findAll();
   }
