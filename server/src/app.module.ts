@@ -12,6 +12,7 @@ import { UserProjectModule } from './user-project/user-project.module';
 import { FeedbackModule } from './feedback/feedback.module';
 import { CommentsModule } from './comments/comments.module';
 import { AuthModule } from './auth/auth.module';
+import { NotificationsModule } from './notifications/notifications.module';
 import config from './core/database/connection';
 
 @Module({
@@ -31,6 +32,7 @@ import config from './core/database/connection';
     FeedbackModule,
     CommentsModule,
     AuthModule,
+    NotificationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -20,6 +20,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "pretest:e2e": "npm run undo:test:migrations && npm run test:migrations && npm run test:undo:seed && npm run test:seed",
     "test:e2e": "cross-env NODE_ENV=test jest --no-cache --config ./test/jest-e2e.json",
+    "migrations:generate":"npx sequelize-cli migration:create --name",
     "migrations": "npx sequelize-cli db:migrate",
     "test:migrations": "cross-env NODE_ENV=test npx sequelize-cli db:migrate",
     "undo:test:migrations": "cross-env NODE_ENV=test npx sequelize-cli db:migrate:undo:all",

@@ -6,7 +6,7 @@ class ApiService {
   private static axios = axios;
 
   public static init(): void {
-    this.axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
+    this.axios.defaults.baseURL = process.env.NEXT_PUBLIC_BASE_URL;
     this.axios.interceptors.response.use(
       (res) => res,
       (err) => {
@@ -18,13 +18,13 @@ class ApiService {
         // ) {
         //   toast.error(err?.response?.data?.message);
         // }
-        // return Promise.reject(err);
+        return Promise.reject(err);
       }
     );
   }
 
   public static setHeader(): void {
-    this.axios.defaults.headers.common.Authorization = `Bearer ${JwtService.getToken()}`;
+    // this.axios.defaults.headers.common.Authorization = `Bearer ${JwtService.getToken()}`;
     this.axios.defaults.headers.common.Accept = "application/json";
     this.axios.defaults.headers.common["Content-Type"] = "application/json";
   }

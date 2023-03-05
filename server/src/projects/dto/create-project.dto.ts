@@ -1,4 +1,11 @@
-import { IsNotEmpty, IsNumber, MaxLength } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumber,
+  MaxLength,
+  IsArray,
+  IsString,
+  IsOptional
+} from 'class-validator';
 
 export class CreateProjectDto {
   @IsNotEmpty()
@@ -8,4 +15,9 @@ export class CreateProjectDto {
   @IsNotEmpty()
   @IsNumber()
   year: number;
+
+  @IsArray()
+  @IsString({ each: true })
+  @IsOptional()
+  images: string[];
 }
