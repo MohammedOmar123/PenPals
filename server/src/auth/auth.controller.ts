@@ -1,7 +1,9 @@
-import { Controller, Post, Body, Query, Get } from '@nestjs/common';
+import { Controller, Post, Body, Query, Get, Res } from '@nestjs/common';
+import { Response } from 'express';
 
+import { LOGOUT, LOGIN } from '../core/constant';
 import { AuthService } from './auth.service';
-import { SignupDto, SignInDto, VerifyDto } from './dto';
+import { SignupDto, SignInDto, VerifyDto, ResendEmailDto } from './dto';
 import { EmailServices } from './email.service';
 
 @Controller('auth')
@@ -17,12 +19,31 @@ export class AuthController {
   }
 
   @Post('sign-in')
-  login(@Body() dto: SignInDto) {
-    return this.authService.sigIn(dto);
+  async login(@Body() dto: SignInDto, @Res() res: Response) {
+    const token = await this.authService.sigIn(dto);
+    res
+      .cookie('token', token, { httpOnly: true })
+      .status(201)
+      .send({ message: LOGIN });
   }
 
   @Get('verify')
-  verify(@Query() dto: VerifyDto) {
-    return this.emailServices.verifyEmail(dto.token);
+  async verify(@Query() dto: VerifyDto, @Res() res: Response) {
+    const url = await this.emailServices.verifyEmail(dto.token);
+    res
+      .cookie('token', dto.token, { httpOnly: true })
+      .status(301)
+      .redirect(url);
+  }
+
+  @Post('resend-email')
+  resendEmail(@Body() dto: ResendEmailDto) {
+    return this.emailServices.resendMail(dto.email);
+  }
+
+  @Post('sign-out')
+  signOut(@Res() res: Response) {
+    res.clearCookie('token');
+    return { message: LOGOUT };
   }
 }

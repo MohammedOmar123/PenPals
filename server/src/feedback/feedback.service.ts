@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 
 import { CreateFeedbackDto, UpdateFeedbackDto } from './dto';
 import { Feedback } from './entities/feedback.entity';
-import { CREATE_FEEDBACK } from '../core/constant';
+import { CREATE_FEEDBACK, UPDATE } from '../core/constant';
 
 @Injectable()
 export class FeedbackService {
@@ -24,8 +24,23 @@ export class FeedbackService {
     return `This action returns a #${id} feedback`;
   }
 
-  update(id: number, updateFeedbackDto: UpdateFeedbackDto) {
-    return `This action updates a #${id} feedback`;
+  async update(
+    id: number,
+    user: { userId: number; role: string },
+    dto: UpdateFeedbackDto,
+  ) {
+    let updated = [];
+
+    if (user.role === 'admin') {
+      updated = await this.feedbackRepository.update(dto, { where: { id } });
+    } else {
+      updated = await this.feedbackRepository.update(dto, {
+        where: { id, userId: user.userId },
+      });
+    }
+
+    if (!updated[0]) throw new NotFoundException("feedback id doesn't exist");
+    else return { message: UPDATE };
   }
 
   remove(id: number) {
