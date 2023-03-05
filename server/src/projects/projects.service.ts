@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { CREATE_PROJECT, UPDATE } from '../core/constant';
+import { CREATE_PROJECT, UPDATE, DELETE_project } from '../core/constant';
 
 import { CreateProjectDto, UpdateProjectDto } from './dto';
 import { Project } from './entities';
@@ -38,7 +38,11 @@ export class ProjectsService {
     return { message: UPDATE };
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} project`;
+  async remove(id: number) {
+    const deleted = await this.projectRepository.destroy({ where: { id } });
+
+    if (!deleted) throw new NotFoundException('the project id does not exist');
+
+    return { message: DELETE_project };
   }
 }

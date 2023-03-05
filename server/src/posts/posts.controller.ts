@@ -16,7 +16,7 @@ import { PostsService } from './posts.service';
 import { CreatePostDto, UpdatePostDto } from './dto/';
 import { JwtAuthGuard } from '../auth/strategy';
 import { RolesGuard } from '../auth/Guards/roles.guard';
-import { Roles, GetUser } from '../auth/decrator';
+import { Roles, GetUser } from '../auth/decorators';
 import { Role } from '../auth/enums/role.enum';
 @Controller('posts')
 @UseInterceptors(CacheInterceptor)
@@ -27,9 +27,11 @@ export class PostsController {
   @Roles(Role.Admin, Role.Student)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Post()
-  create(@Body() createPostDto: CreatePostDto, @GetUser() userId: number) {
-    console.log(userId);
-    return this.postsService.create(createPostDto);
+  create(
+    @Body() createPostDto: CreatePostDto,
+    @GetUser() { userId }: { userId: number },
+  ) {
+    return this.postsService.create(userId, createPostDto);
   }
 
   @Get()

@@ -8,7 +8,7 @@ import { Post } from './entities/post.entity';
 export class PostsService {
   constructor(@InjectModel(Post) private postRepository: typeof Post) {}
 
-  create(createPostDto: CreatePostDto) {
+  create(userId, createPostDto: CreatePostDto) {
     return 'This action adds a new post';
   }
 

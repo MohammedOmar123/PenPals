@@ -12,6 +12,7 @@ import * as bcrypt from 'bcrypt';
 import { SignInDto, SignupDto } from './dto/';
 import { User } from '../users/entities';
 import { EmailServices } from './email.service';
+import { EmailNotConfirmedException } from '../core/HttpExceptionFilter/';
 import {
   JWT_KEY,
   CHECK_EMAIL,
@@ -40,17 +41,31 @@ export class AuthService {
 
       const hashed = await bcrypt.hash(password, 10);
 
-      const secretKey = this.configService.get(JWT_KEY);
-      const verifyToken = await this.jwtService.signAsync(email, {
-        secret: secretKey,
-      });
+      const user = await this.userRepository.create(
+        {
+          ...dto,
+          password: hashed,
+          role: 'user',
+        },
+        {
+          returning: true,
+        },
+      );
 
-      await this.userRepository.create({
-        ...dto,
-        password: hashed,
-        role: 'user',
-        verifyToken,
-      });
+      const verifyToken = await this.generateToken(
+        user.id,
+        user.email,
+        user.role,
+      );
+
+      await this.userRepository.update(
+        {
+          verifyToken,
+        },
+        {
+          where: { id: user.id },
+        },
+      );
 
       await this.emailServices.sendMail(email, verifyToken);
 
@@ -70,26 +85,36 @@ export class AuthService {
     const { email, password } = dto;
 
     const user = await this.userRepository.findOne({
-      where: { email, isConfirmed: true },
+      where: { email },
     });
 
     if (!user) throw new ForbiddenException(INVALID_CREDENTIALS);
+    if (!user.isConfirmed) throw new EmailNotConfirmedException();
 
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) throw new ForbiddenException(INVALID_CREDENTIALS);
 
+    const accessToken = await this.generateToken(
+      user.id,
+      user.email,
+      user.role,
+    );
+    return accessToken;
+  }
+
+  async generateToken(id: number, email: string, role: string) {
     const secret = this.configService.get(JWT_KEY);
     const accessToken = await this.jwtService.signAsync(
       {
-        id: user.id,
-        email: user.id,
-        role: user.role,
+        id,
+        email,
+        role,
       },
       {
         expiresIn: '10d',
         secret,
       },
     );
-    return { accessToken };
+    return accessToken;
   }
 }
