@@ -6,12 +6,16 @@ import {
   Patch,
   Param,
   Delete,
+  UseInterceptors,
+  CacheInterceptor,
+  CacheTTL,
 } from '@nestjs/common';
 import { NotificationsService } from './notifications.service';
 import { CreateNotificationDto } from './dto/create-notification.dto';
 import { UpdateNotificationDto } from './dto/update-notification.dto';
 
 @Controller('notifications')
+@UseInterceptors(CacheInterceptor)
 export class NotificationsController {
   constructor(private readonly notificationsService: NotificationsService) {}
 
@@ -21,6 +25,7 @@ export class NotificationsController {
   }
 
   @Get()
+  @CacheTTL(60)
   findAll() {
     return this.notificationsService.findAll();
   }

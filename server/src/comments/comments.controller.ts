@@ -6,11 +6,15 @@ import {
   Patch,
   Param,
   Delete,
+  CacheInterceptor,
+  UseInterceptors,
+  CacheTTL,
 } from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { CreateCommentDto, UpdateCommentDto } from './dto';
 
 @Controller('comments')
+@UseInterceptors(CacheInterceptor)
 export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 
@@ -20,6 +24,7 @@ export class CommentsController {
   }
 
   @Get()
+  @CacheTTL(60)
   findAll() {
     return this.commentsService.findAll();
   }
