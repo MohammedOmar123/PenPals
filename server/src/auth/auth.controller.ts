@@ -24,7 +24,7 @@ export class AuthController {
     res
       .cookie('token', token, { httpOnly: true })
       .status(201)
-      .send({ message: LOGIN });
+      .json({ message: LOGIN });
   }
 
   @Get('verify')
@@ -43,7 +43,6 @@ export class AuthController {
 
   @Post('sign-out')
   signOut(@Res() res: Response) {
-    res.clearCookie('token');
-    return { message: LOGOUT };
+    res.clearCookie('token').status(200).json({ message: LOGOUT });
   }
 }
