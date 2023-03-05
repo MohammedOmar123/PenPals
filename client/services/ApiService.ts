@@ -25,6 +25,8 @@ class ApiService {
 
   public static setHeader(): void {
     // this.axios.defaults.headers.common.Authorization = `Bearer ${JwtService.getToken()}`;
+    // const token = Cookies.get("your_token_cookie_name");
+
     this.axios.defaults.headers.common.Accept = "application/json";
     this.axios.defaults.headers.common["Content-Type"] = "application/json";
   }

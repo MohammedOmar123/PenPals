@@ -1,8 +1,10 @@
-'use client'
+"use client";
 import "./globals.css";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { useEffect } from "react";
 import ApiService from "@/services/ApiService";
+import { arabicSignout } from "@/utils/constants";
+import { endpoints } from "@/utils/endpoints";
 
 const queryClient = new QueryClient();
 
@@ -11,11 +13,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-
   useEffect(() => {
     ApiService.init();
     ApiService.setHeader();
-  })
+  });
+
+  const handleSignout = async () => {
+    await ApiService.post(endpoints.signout,{});
+  }
   return (
     <html lang="ar">
       {/*
@@ -25,6 +30,7 @@ export default function RootLayout({
       <head />
       <body dir="rtl" className="bg-custom-gray">
         <QueryClientProvider client={queryClient}>
+          <button type="button" className="border border-[#222] p-2" onClick={handleSignout}>{arabicSignout.signout}</button>
           {children}
         </QueryClientProvider>
       </body>

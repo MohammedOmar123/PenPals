@@ -1,9 +1,9 @@
-// 'use client'
+"use client";
 import { Formik, Form } from "formik";
 import FormikControl from ".";
 import Link from "next/link";
-import { arabicRegister } from "@/utils/constants";
-import { validationSchema } from "@/validation/register";
+import { arabicSignin } from "@/utils/constants";
+import { validationSchema } from "@/validation/signin";
 import ApiService from "@/services/ApiService";
 import { endpoints } from "@/utils/endpoints";
 import { useMutation } from "react-query";
@@ -12,41 +12,34 @@ import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 
 const initialValues = {
-  firstName: "",
-  lastName: "",
   email: "",
   password: "",
-  confirmPassword: "",
 };
-interface IRegisterForm {
-  firstName: string;
-  lastName: string;
+interface ISigninForm {
   email: string;
   password: string;
-  confirmPassword: string;
 }
 
-const signup = async (values: IRegisterForm) => {
-  const { confirmPassword, ...rest } = values;
-  const { data } = await ApiService.post(endpoints.register, rest);
+const signin = async (values: ISigninForm) => {
+  const { data } = await ApiService.post(endpoints.signin, values);
   return data;
 };
 
-const RegisterForm = () => {
+const SigninForm = () => {
   const router = useRouter();
   const { mutateAsync, data, isError, error, isLoading } = useMutation<
     any,
     AxiosError<{ message: string }>,
     any
   >({
-    mutationFn: signup,
+    mutationFn: signin,
   });
 
-  const onSubmit = async (values: IRegisterForm) => {
-    await mutateAsync(values, {
+  const onSubmit = async (values: ISigninForm) => {
+    await mutateAsync(values,{
       onSuccess: () => {
-        router.push("/wait-verified");
-      },
+        router.push("/");
+      }
     });
   };
 
@@ -65,7 +58,7 @@ const RegisterForm = () => {
     <>
       <div className="w-[90%] md:w-[35rem] m-auto shadow-drop px-6 md:px-10 py-10 flex flex-col gap-8 rounded-md bg-custom-gray">
         <h1 className="text-2xl font-bold text-primary text-center mb-4">
-          {arabicRegister.newAccount}
+          {arabicSignin.login}
         </h1>
         {isLoading && <div>Loading...</div>}
         {isError && (
@@ -79,51 +72,36 @@ const RegisterForm = () => {
         >
           {() => (
             <Form className="flex flex-col gap-5">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <FormikControl
-                  control="input"
-                  type="text"
-                  name="firstName"
-                  placeholder={arabicRegister.firstName}
-                />
-                <FormikControl
-                  control="input"
-                  type="text"
-                  name="lastName"
-                  placeholder={arabicRegister.lastName}
-                />
-              </div>
               <FormikControl
                 control="input"
                 type="email"
                 name="email"
-                placeholder={arabicRegister.email}
+                placeholder={arabicSignin.email}
               />
               <FormikControl
                 control="input"
                 type="password"
                 name="password"
-                placeholder={arabicRegister.password}
-              />
-              <FormikControl
-                control="input"
-                type="password"
-                name="confirmPassword"
-                placeholder={arabicRegister.confirmPassword}
+                placeholder={arabicSignin.password}
               />
               <div className="flex text-sm mt-5">
                 <p className="text-light-primary">
-                  {arabicRegister.alreadyHaveAccount}
+                  <span>{arabicSignin.notHaveAccount} </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      router.push('/register')
+                    }}
+                  >
+                    {arabicSignin.newAccount}
+                  </button>
                 </p>
-                <Link href="/login" className="text-primary mr-1">
-                  {arabicRegister.login}
-                </Link>
               </div>
               <button
                 type="submit"
                 className=" text-primary w-fit py-2 px-4 rounded-lg shadow-drop"
               >
-                {arabicRegister.register}
+                {arabicSignin.login}
               </button>
             </Form>
           )}
@@ -133,4 +111,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default SigninForm;
