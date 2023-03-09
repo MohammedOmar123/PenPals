@@ -5,22 +5,19 @@ import { useEffect } from "react";
 import ApiService from "@/services/ApiService";
 import { arabicSignout } from "@/utils/constants";
 import { endpoints } from "@/utils/endpoints";
+import { observer } from "mobx-react";
+import authStore from "@/store/AuthStore";
+import { useSignout } from "@/hooks/auth.hook";
+import Header from "@/components/Header";
 
 const queryClient = new QueryClient();
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+function RootLayout({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     ApiService.init();
     ApiService.setHeader();
   });
 
-  const handleSignout = async () => {
-    await ApiService.post(endpoints.signout,{});
-  }
   return (
     <html lang="ar">
       {/*
@@ -30,10 +27,11 @@ export default function RootLayout({
       <head />
       <body dir="rtl" className="bg-custom-gray">
         <QueryClientProvider client={queryClient}>
-          <button type="button" className="border border-[#222] p-2" onClick={handleSignout}>{arabicSignout.signout}</button>
+          <Header />
           {children}
         </QueryClientProvider>
       </body>
     </html>
   );
 }
+export default RootLayout;

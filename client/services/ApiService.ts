@@ -7,6 +7,7 @@ class ApiService {
 
   public static init(): void {
     this.axios.defaults.baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+    this.axios.defaults.withCredentials= true;
     this.axios.interceptors.response.use(
       (res) => res,
       (err) => {

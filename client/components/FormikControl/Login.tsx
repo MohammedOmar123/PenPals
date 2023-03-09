@@ -1,66 +1,57 @@
 "use client";
-import { Formik, Form } from "formik";
+import { Formik, Form, FormikHelpers } from "formik";
 import FormikControl from ".";
-import Link from "next/link";
 import { arabicSignin } from "@/utils/constants";
 import { validationSchema } from "@/validation/signin";
-import ApiService from "@/services/ApiService";
-import { endpoints } from "@/utils/endpoints";
-import { useMutation } from "react-query";
-import { useEffect } from "react";
-import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
+import { useSignin } from "@/hooks/auth.hook";
+import { observer } from "mobx-react";
+import authStore from "@/store/AuthStore";
+import { ISigninForm } from "@/interfaces/other/ISigninForm";
+import Loading from "../Loading";
+import classNames from "classnames";
 
 const initialValues = {
   email: "",
   password: "",
 };
-interface ISigninForm {
-  email: string;
-  password: string;
-}
-
-const signin = async (values: ISigninForm) => {
-  const { data } = await ApiService.post(endpoints.signin, values);
-  return data;
-};
 
 const SigninForm = () => {
   const router = useRouter();
-  const { mutateAsync, data, isError, error, isLoading } = useMutation<
-    any,
-    AxiosError<{ message: string }>,
-    any
-  >({
-    mutationFn: signin,
-  });
-
-  const onSubmit = async (values: ISigninForm) => {
-    await mutateAsync(values,{
+  const { mutateAsync: signin, data, isError, error, isLoading } = useSignin();
+  const onSubmit = async (
+    values: ISigninForm,
+    { setSubmitting }: FormikHelpers<ISigninForm>
+  ) => {
+    await signin(values, {
       onSuccess: () => {
+        authStore.setUser({
+          id: "1",
+          name: "Ahmed",
+        });
         router.push("/");
-      }
+      },
+
+      onSettled: () => {
+        setSubmitting(false);
+      },
     });
   };
 
-  useEffect(() => {
-    console.log(error, "error");
-    console.log(data, "data");
-    if (data) {
-      console.log(data);
-    }
-    if (isError) {
-      console.log(error);
-    }
-  }, [data, error]);
-
   return (
     <>
-      <div className="w-[90%] md:w-[35rem] m-auto shadow-drop px-6 md:px-10 py-10 flex flex-col gap-8 rounded-md bg-custom-gray">
+      <div
+        className={classNames(
+          "w-[90%] md:w-[35rem] m-auto shadow-drop px-6 md:px-10 py-10 flex flex-col gap-8 rounded-md bg-custom-gray",
+          {
+            "parent-loading": isLoading,
+          }
+        )}
+      >
         <h1 className="text-2xl font-bold text-primary text-center mb-4">
           {arabicSignin.login}
         </h1>
-        {isLoading && <div>Loading...</div>}
+        {isLoading && <Loading />}
         {isError && (
           <div className="text-danger">{error?.response?.data?.message}</div>
         )}
@@ -90,7 +81,7 @@ const SigninForm = () => {
                   <button
                     type="button"
                     onClick={() => {
-                      router.push('/register')
+                      router.push("/register");
                     }}
                   >
                     {arabicSignin.newAccount}
@@ -111,4 +102,4 @@ const SigninForm = () => {
   );
 };
 
-export default SigninForm;
+export default observer(SigninForm);
