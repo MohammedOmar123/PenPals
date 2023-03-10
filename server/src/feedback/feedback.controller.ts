@@ -36,11 +36,6 @@ export class FeedbackController {
     return this.feedbackService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.feedbackService.findOne(+id);
-  }
-
   @Patch(':id')
   update(
     @Param('id', ParamValidationPipe) id: number,
@@ -51,7 +46,10 @@ export class FeedbackController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.feedbackService.remove(+id);
+  remove(
+    @Param('id', ParamValidationPipe) id: number,
+    @GetUser() user: { userId: number; role: string },
+  ) {
+    return this.feedbackService.remove(+id, user);
   }
 }
