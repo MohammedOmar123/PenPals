@@ -13,6 +13,8 @@ const SENDER = 'بالعربية نرتقي';
 const INVALID_EMAIL = 'الإيميل مستخدم مسبقا.الرجاء استخدام إيميل جديد';
 const RESEND_EMAIL = 'لقد تم إرسال البريد الإلكتروني مرة آخرى';
 const EMAIL_IS_NOT_CONFIRMED = 'لم يتم تأكيد البريد الإلكتروني';
+const DELETE_FAILED = 'فشلت عملية الحذف';
+const UPDATE_FAILED = 'فشلت عملية التعديل';
 
 // Error messages
 const INTERNAL_SERVER_ERROR_MESSAGE = 'حدث خطأ داخلي بالنظام ';
@@ -26,7 +28,7 @@ const CREATE_FEEDBACK = 'تم إضافة التعليق بنجاح';
 const LOGOUT = 'تم تسجيل الخروج';
 const UPDATE = 'تم التعديل بنجاح';
 const LOGIN = 'تم تسجيل الدخول بنجاح';
-const DELETE_FEEDBACK = 'تم حذف التعليق بنجاح'
+const DELETE_FEEDBACK = 'تم حذف التعليق بنجاح';
 // Authentication tokens
 const ADMIN_TOKEN =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIxIiwiZW1haWwiOiJtb2hhbW1lZEBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NzczNjU1MzEsImV4cCI6MTY3ODIyOTUzMX0.0CAr66OJZfkoBmW_x_o4sjGWzZ1TkPkudhs0e-V3Zrs';
@@ -59,4 +61,6 @@ export {
   LOGOUT,
   LOGIN,
   DELETE_FEEDBACK,
+  DELETE_FAILED,
+  UPDATE_FAILED,
 };

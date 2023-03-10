@@ -3,7 +3,13 @@ import { InjectModel } from '@nestjs/sequelize';
 
 import { CreateFeedbackDto, UpdateFeedbackDto } from './dto';
 import { Feedback } from './entities/feedback.entity';
-import { CREATE_FEEDBACK, DELETE_FEEDBACK, UPDATE } from '../core/constant';
+import {
+  CREATE_FEEDBACK,
+  DELETE_FAILED,
+  DELETE_FEEDBACK,
+  UPDATE,
+  UPDATE_FAILED,
+} from '../core/constant';
 
 @Injectable()
 export class FeedbackService {
@@ -35,7 +41,7 @@ export class FeedbackService {
       });
     }
 
-    if (!updated[0]) throw new NotFoundException("feedback id doesn't exist");
+    if (!updated[0]) throw new NotFoundException(UPDATE_FAILED);
     else return { message: UPDATE };
   }
 
@@ -51,7 +57,7 @@ export class FeedbackService {
     }
 
     if (!isDelete) {
-      throw new NotFoundException("feedback id doesn't exist");
+      throw new NotFoundException(DELETE_FAILED);
     }
 
     return { message: DELETE_FEEDBACK };
