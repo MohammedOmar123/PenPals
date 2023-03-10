@@ -6,6 +6,7 @@ import {
   BelongsTo,
   PrimaryKey,
   HasMany,
+  DataType,
 } from 'sequelize-typescript';
 
 import { User } from '../../users/entities';
@@ -26,6 +27,9 @@ export class Post extends Model<Post> {
 
   @Column
   isApproved: boolean;
+
+  @Column({ type: DataType.ARRAY(DataType.STRING) })
+  review: string[];
 
   @ForeignKey(() => User)
   @Column
