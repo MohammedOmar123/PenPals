@@ -11,8 +11,20 @@ export class UsersService {
     return 'This action adds a new user';
   }
 
-  findAll() {
-    return this.userRepository.findAll();
+  findAll(id: number) {
+    const user = this.userRepository.findOne({
+      attributes: {
+        exclude: [
+          'password',
+          'verifyToken',
+          'isConfirmed',
+          'createdAt',
+          'updatedAt',
+        ],
+      },
+      where: { id },
+    });
+    return user;
   }
 
   findOne(id: number) {
