@@ -10,7 +10,7 @@ import { Post } from '../../posts/entities';
 import { User } from '../../Users/entities';
 
 @Table
-export class Notification extends Model<User> {
+export class Notification extends Model<Notification> {
   @PrimaryKey
   @Column({ autoIncrement: true })
   id: number;
