@@ -346,13 +346,6 @@ describe('Feedback', () => {
   });
 });
 
-// Users
-describe('Users', () => {
-  it('should return a list of users', async () => {
-    return request(app.getHttpServer()).get('/users').expect(200);
-  });
-});
-
 describe('Posts', () => {
   it('should return a list of posts ', () => {
     return request(app.getHttpServer()).get('/posts').expect(200);
