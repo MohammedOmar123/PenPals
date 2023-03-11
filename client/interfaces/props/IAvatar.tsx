@@ -1,7 +1,9 @@
+import { StaticImageData } from "next/image";
+
 export interface IAvatar {
-    image: string;
+    image: string | StaticImageData;
     alt:string;
-    className:string;
+    className?:string;
     width:number;
     height:number;
 }
