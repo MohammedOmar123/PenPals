@@ -5,12 +5,13 @@ import {
   Model,
   PrimaryKey,
   Table,
+  Default,
 } from 'sequelize-typescript';
-import { Post } from '../../posts/entities';
-import { User } from '../../Users/entities';
+import { User } from '../../users/entities/user.entity';
+import { Post } from '../../posts/entities/post.entity';
 
 @Table
-export class Notification extends Model<User> {
+export class Notification extends Model<Notification> {
   @PrimaryKey
   @Column({ autoIncrement: true })
   id: number;
@@ -18,20 +19,19 @@ export class Notification extends Model<User> {
   @Column
   type: string;
 
+  @Default(false)
   @Column
   seen: boolean;
 
   @ForeignKey(() => User)
-  @Column
   userId: number;
-
-  @ForeignKey(() => Post)
-  @Column
-  postId: number;
 
   @BelongsTo(() => User)
   user: User;
 
+  @ForeignKey(() => Post)
+  postId: number;
+
   @BelongsTo(() => Post)
-  post: Post;
+  post: User;
 }
