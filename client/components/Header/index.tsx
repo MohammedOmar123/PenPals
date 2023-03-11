@@ -6,15 +6,15 @@ import { observer } from "mobx-react";
 import Loading from "../Loading";
 import Link from "next/link";
 import { ISignInHeaderProps } from "@/interfaces/props/ISignInHeader";
+import Navbar from "../Navbar";
 
 
 
-const SignInHeader = ({ user, onSignout }: ISignInHeaderProps) => (
+const SignInHeader = ({ user }: ISignInHeaderProps) => (
   <>
     <button
       type="button"
       className="border border-[#222] p-2"
-      onClick={onSignout}
     >
       {arabicSignout.signout}
     </button>
@@ -43,10 +43,11 @@ const Header = () => {
   return (
     <>
       {isLoading && <Loading />}
-      <div className="flex justify-between p-4">
-        {user && <SignInHeader user={user} onSignout={handleSignout} />}
-        {!user && <SignOutHeader />}
-      </div>
+      <header>
+         <Navbar />
+        {/* {user && <SignInHeader user={user} onSignout={handleSignout} />}
+        {!user && <SignOutHeader />} */}
+      </header>
     </>
   );
 };
