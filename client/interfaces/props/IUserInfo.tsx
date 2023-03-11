@@ -1,5 +1,8 @@
+import { StaticImageData } from "next/image";
+
 export interface IUserInfo{
-    image: string;
+    image: string | StaticImageData;
     username:string;
-    imgClassName:string;
+    imgClassName?:string;
+    dir?:'rtl' | 'ltr';
 }

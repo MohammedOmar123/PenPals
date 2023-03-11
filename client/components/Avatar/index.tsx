@@ -8,7 +8,7 @@ return (
         <Image
             src={image}
             alt={alt}
-            className={classNames('object-cover rounded-full p-0.5 border-solid border-2 border-indigo-500',className)}
+            className={classNames('object-cover rounded-full',className)}
             width={width}
             height={height}
         />
