@@ -17,4 +17,10 @@ export class SignupDto {
   @IsString()
   @IsNotEmpty()
   password: string;
+
+
+  @IsString()
+  @IsNotEmpty()
+  confirmPassword: string;
+
 }
