@@ -19,7 +19,6 @@ import {
   INVALID_EMAIL,
   INVALID_CREDENTIALS,
 } from '../core/constant';
-import * as _ from 'lodash';
 
 @Injectable()
 export class AuthService {
@@ -88,11 +87,29 @@ export class AuthService {
 
     const user = await this.userRepository.findOne({
       where: { email },
+      attributes: [
+        'id',
+        'firstName',
+        'lastName',
+        'email',
+        'image',
+        'role',
+        'isConfirmed',
+        'password',
+      ],
       raw: true,
     });
 
     if (!user) throw new ForbiddenException(INVALID_CREDENTIALS);
-    if (!user.isConfirmed) throw new EmailNotConfirmedException();
+    if (!user.isConfirmed) {
+      const verifyToken = await this.generateToken(
+        user.id,
+        user.email,
+        user.role,
+      );
+      this.emailServices.sendMail(email, verifyToken);
+      throw new EmailNotConfirmedException();
+    }
 
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) throw new ForbiddenException(INVALID_CREDENTIALS);
@@ -103,14 +120,7 @@ export class AuthService {
       user.role,
     );
 
-    const rest = _.omit(user, [
-      'password',
-      'createdAt',
-      'updatedAt',
-      'isConfirmed',
-      'verifyToken',
-    ]);
-
+    const { password: userPassword, isConfirmed, ...rest } = user;
     return { accessToken, rest };
   }
 

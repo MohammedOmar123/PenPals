@@ -1,7 +1,7 @@
 import { Controller, Post, Body, Query, Get, Res } from '@nestjs/common';
 import { Response } from 'express';
 
-import { LOGOUT } from '../core/constant';
+import { LOGIN, LOGOUT } from '../core/constant';
 import { AuthService } from './auth.service';
 import { SignupDto, SignInDto, VerifyDto, ResendEmailDto } from './dto';
 import { EmailServices } from './email.service';
@@ -24,7 +24,7 @@ export class AuthController {
     res
       .cookie('token', data.accessToken, { httpOnly: true })
       .status(201)
-      .json(data.rest);
+      .json({ user: data.rest, message: LOGIN });
   }
 
   @Get('verify')
