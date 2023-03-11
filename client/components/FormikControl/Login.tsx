@@ -44,7 +44,7 @@ const SigninForm = () => {
     <>
       <div
         className={classNames(
-          "w-[90%] md:w-[35rem] m-auto shadow-drop px-6 md:px-10 py-10 flex flex-col gap-8 rounded-md bg-custom-gray",
+          "w-[90%] md:w-[35rem] m-auto shadow-drop px-6 md:px-10 py-10 flex flex-col gap-8 rounded-md bg-dark",
           {
             "parent-loading": isLoading,
           }

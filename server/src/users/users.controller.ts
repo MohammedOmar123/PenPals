@@ -7,12 +7,15 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 
 import { UsersService } from './users.service';
-import { CreateUserDto, UpdateUserDto } from './dto/';
+import { CreateUserDto, GetUsersDto, UpdateUserDto } from './dto/';
 import { JwtAuthGuard } from '../auth/strategy/jwt-auth-guard';
-import { GetUser } from '../auth/decorators';
+import { GetUser, Roles } from '../auth/decorators';
+import { Role } from '../auth/enums/role.enum';
+import { RolesGuard } from 'src/auth/Guards/roles.guard';
 
 @Controller('users')
 export class UsersController {
@@ -21,6 +24,13 @@ export class UsersController {
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
+  }
+
+  @Roles(Role.Admin)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Get()
+  getAll(@Query() queryString: GetUsersDto) {
+    return this.usersService.getAll(queryString);
   }
 
   @UseGuards(JwtAuthGuard)

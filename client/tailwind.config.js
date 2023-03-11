@@ -2,6 +2,7 @@ const colors = require("tailwindcss/colors");
 /** @type {import('tailwindcss').Config} */
 
 module.exports = {
+  darkMode: 'class',
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
     "./pages/**/*.{js,ts,jsx,tsx}",
@@ -10,17 +11,23 @@ module.exports = {
   theme: {
     colors: {
       ...colors,
-      primary: "#4967B5",
-      "light-primary": "#7091E7",
-      light: "#FDFFFF",
-      dark: "#222222",
-      secondary: "rgba(26, 59, 144, 0.2)",
-      title: "#4D5F79",
-      danger: "#EB5757",
+      primary: "#0C8CE9",
+      'theme-primary':{
+        light: "#054782",
+        dark: "#A7D6E1",
+      },
+      secondary:{
+        light: "#FFFFFF",
+        dark: "#202020",
+      },
+      third:{
+        light: "#EEEEEE",
+        dark: "#333333",
+      },
+      danger: "#E31A1A",
       success: "#27AE60",
-      warning: "#E2B93B",
+      warning: "#DEAD00",
       info: "#2F80ED",
-      "custom-gray": "#EBEEF1",
     },
     fontFamily: {
       sans: ["Inter", "sans-serif"],
@@ -30,9 +37,10 @@ module.exports = {
     },
     extend: {
       boxShadow: {
-        drop: "10px 10px 10px -1px rgba(10, 99, 169, 0.16), -10px -10px 10px -1px rgba(255, 255, 255, 0.7);",
+        dark: "0 2px 4px #222222",
+        light: "0 2px 4px #DDDDDD",
         inner:
-          "inset 10px 10px 10px -1px rgba(10, 99, 169, 0.16), inset -10px -10px 10px -1px rgba(255, 255, 255, 0.7)",
+          "inset 5px 5px 10px -1px rgba(10, 99, 169, 0.16), inset -5px -5px 10px -1px rgba(255, 255, 255, 0.7)",
       },
     },
   },
