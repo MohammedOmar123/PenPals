@@ -1,10 +1,10 @@
 "use client";
 import { Formik, Form, FormikHelpers } from "formik";
 import FormikControl from ".";
-import { arabicSignin } from "@/utils/constants";
+import { arabicSignin, queryKeys } from "@/utils/constants";
 import { validationSchema } from "@/validation/signin";
 import { useRouter } from "next/navigation";
-import { useSignin } from "@/hooks/auth.hook";
+import { useGetUser, useSignin } from "@/hooks/auth.hook";
 import { observer } from "mobx-react";
 import authStore from "@/store/AuthStore";
 import { ISigninForm } from "@/interfaces/other/ISigninForm";
@@ -19,21 +19,23 @@ const initialValues = {
 const SigninForm = () => {
   const router = useRouter();
   const { mutateAsync: signin, data, isError, error, isLoading } = useSignin();
+  const { refetch } = useGetUser(false);
   const onSubmit = async (
     values: ISigninForm,
     { setSubmitting }: FormikHelpers<ISigninForm>
   ) => {
     await signin(values, {
-      onSuccess: () => {
-        authStore.setUser({
-          id: "1",
-          name: "Ahmed",
-        });
+      onSuccess: async () => {
+        await refetch();
         router.push("/");
       },
-
       onSettled: () => {
         setSubmitting(false);
+      },
+      onError: (err) => {
+        if (err?.response?.status === 422) {
+          router.push("/wait-verified");
+        }
       },
     });
   };

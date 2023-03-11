@@ -75,8 +75,6 @@ export const arabicSignout= {
   message: "هل تريد بالتأكيد تسجيل الخروج؟",
   yes: "نعم",
   no: "لا",
-  
-
 }
 export const arabicWaitVerified = {
   title: "رسالة التحقق",
@@ -86,6 +84,11 @@ export const arabicWaitVerified = {
   notReceived: "لم استلم رسالة تحقق؟",
   clickHere: "انقر هنا",
 };
+
+// query keys
+export const queryKeys = {
+  me: 'me',
+}
 
 export const notifications: INotificationsItem[] = [
   {

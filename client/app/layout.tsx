@@ -1,22 +1,12 @@
 "use client";
 import "./globals.css";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { useEffect } from "react";
-import ApiService from "@/services/ApiService";
-import { arabicSignout } from "@/utils/constants";
-import { endpoints } from "@/utils/endpoints";
-import { observer } from "mobx-react";
-import authStore from "@/store/AuthStore";
-import { useSignout } from "@/hooks/auth.hook";
 import Header from "@/components/Header";
+import AuthContainer from "@/components/Auth/AuthContainer";
 
 const queryClient = new QueryClient();
 
 function RootLayout({ children }: { children: React.ReactNode }) {
-  useEffect(() => {
-    ApiService.init();
-    ApiService.setHeader();
-  });
 
   return (
     <html lang="ar">
@@ -27,8 +17,10 @@ function RootLayout({ children }: { children: React.ReactNode }) {
       <head />
       <body dir="rtl" className="bg-custom-gray">
         <QueryClientProvider client={queryClient}>
-          <Header />
-          {children}
+          <AuthContainer>
+            <Header />
+            {children}
+          </AuthContainer>
         </QueryClientProvider>
       </body>
     </html>

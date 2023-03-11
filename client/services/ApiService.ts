@@ -1,74 +1,63 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-// import { toast } from "react-toastify";
-import JwtService from "./JwtService";
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
 class ApiService {
-  private static axios = axios;
+  private api: AxiosInstance;
 
-  public static init(): void {
-    this.axios.defaults.baseURL = process.env.NEXT_PUBLIC_BASE_URL;
-    this.axios.defaults.withCredentials= true;
-    this.axios.interceptors.response.use(
-      (res) => res,
-      (err) => {
-        // if (
-        //   err?.response?.status >= 400 &&
-        //   err?.response?.status < 500 &&
-        //   err?.response?.status !== 401 &&
-        //   err.config.url !== "/users/me"
-        // ) {
-        //   toast.error(err?.response?.data?.message);
-        // }
-        return Promise.reject(err);
+  constructor() {
+    this.api = axios.create({
+      baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+      withCredentials: true,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
       }
+    });
+
+    this.api.interceptors.response.use(
+      (res) => res,
+      (err) => Promise.reject(err)
     );
   }
 
-  public static setHeader(): void {
-    // this.axios.defaults.headers.common.Authorization = `Bearer ${JwtService.getToken()}`;
-    // const token = Cookies.get("your_token_cookie_name");
-
-    this.axios.defaults.headers.common.Accept = "application/json";
-    this.axios.defaults.headers.common["Content-Type"] = "application/json";
-  }
-
-  public static get(
+  public get(
     resource: string,
     config?: AxiosRequestConfig
   ): Promise<AxiosResponse> {
-    return this.axios.get(resource, config);
+    return this.api.get(resource, config);
   }
 
-  public static post(
+  public post(
     resource: string,
     body: any,
     config?: AxiosRequestConfig
   ): Promise<AxiosResponse> {
-    return this.axios.post(resource, body, config);
+    return this.api.post(resource, body, config);
   }
 
-  public static patch(
+  public patch(
     resource: string,
     body: any,
     config?: AxiosRequestConfig
   ): Promise<AxiosResponse> {
-    return this.axios.patch(resource, body, config);
+    return this.api.patch(resource, body, config);
   }
 
-  public static put(
+  public put(
     resource: string,
     body: any,
     config?: AxiosRequestConfig
   ): Promise<AxiosResponse> {
-    return this.axios.put(resource, body, config);
+    return this.api.put(resource, body, config);
   }
 
-  public static delete(
+  public delete(
     resource: string,
     config?: AxiosRequestConfig
   ): Promise<AxiosResponse> {
-    return this.axios.delete(resource, config);
+    return this.api.delete(resource, config);
   }
 }
 
-export default ApiService;
+const apiService = new ApiService();
+
+export default apiService;

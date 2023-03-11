@@ -1,21 +1,16 @@
+import { useGetUser } from "@/hooks/auth.hook";
+import { IUser } from "@/interfaces/other/IUser";
 import { makeObservable, observable, action, computed } from "mobx";
 
-interface IUser {
-  id: string;
-  name: string;
-}
 class AuthStore {
   user: IUser | null = null;
 
   constructor() {
-    makeObservable(this,{
-      // user: observable,
-      // user: observable,
+    makeObservable(this, {
+      user: observable,
       isAuth: computed,
-      currentUser: computed,
       setUser: action,
-      clearUser: action
-
+      clearUser: action,
     });
   }
 
@@ -30,12 +25,6 @@ class AuthStore {
   public get isAuth() {
     return !!this.user;
   }
-
-  public get currentUser() {
-    return this.user;
-  }
-
- 
 }
 
 const authStore = new AuthStore();
