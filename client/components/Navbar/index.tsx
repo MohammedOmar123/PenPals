@@ -34,13 +34,11 @@ const Navbar = () => {
           <div>
             <Button 
             onClick={() => router.push('/sign-in')}
-            content='تسجيل الدخول' 
-            className='bg-text-dark text-light' />
-            
+            className='bg-text-dark text-light'>تسجيل الدخول</Button> 
+
             <Button 
             onClick={() => router.push('/sign-up')} 
-            content='إنشاء حساب' 
-            className='bg-primary text-white' />
+            className='bg-primary text-white'>إنشاء حساب</Button>
           </div>
         }
 
