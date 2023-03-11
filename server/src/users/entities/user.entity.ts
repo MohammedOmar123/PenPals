@@ -9,6 +9,7 @@ import {
 import { Feedback } from '../../feedback/entities';
 import { Post } from '../../posts/entities';
 import { Comment } from '../../comments/entities';
+import { Notification } from '../../notification/entities/notification.entity';
 @Table
 export class User extends Model<User> {
   @PrimaryKey
@@ -44,6 +45,9 @@ export class User extends Model<User> {
 
   @HasMany(() => Feedback)
   feedbacks: Feedback[];
+
+  @HasMany(() => Notification)
+  notifications: Notification[];
 
   @HasMany(() => Comment)
   comments: Comment[];
