@@ -15,7 +15,7 @@ import { CreateUserDto, GetUsersDto, UpdateUserDto } from './dto/';
 import { JwtAuthGuard } from '../auth/strategy/jwt-auth-guard';
 import { GetUser, Roles } from '../auth/decorators';
 import { Role } from '../auth/enums/role.enum';
-import { RolesGuard } from 'src/auth/Guards/roles.guard';
+import { RolesGuard } from '../auth/Guards/roles.guard';
 
 @Controller('users')
 export class UsersController {

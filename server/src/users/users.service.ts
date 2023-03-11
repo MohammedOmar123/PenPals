@@ -12,7 +12,6 @@ export class UsersService {
   }
 
   async getAll(queryString: GetUsersDto) {
-    console.log(queryString);
     const whereObj = {};
     if (queryString.fullName) {
       const fullName = queryString.fullName.split(' ');

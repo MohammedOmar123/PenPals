@@ -12,7 +12,8 @@ const EMAIL_VERIFIED_SUCCESSFULLY = 'تم تفعيل  البريد الإلكت�
 const SENDER = 'بالعربية نرتقي';
 const INVALID_EMAIL = 'الإيميل مستخدم مسبقا.الرجاء استخدام إيميل جديد';
 const RESEND_EMAIL = 'لقد تم إرسال البريد الإلكتروني مرة آخرى';
-const EMAIL_IS_NOT_CONFIRMED = 'لم يتم تأكيد البريد الإلكتروني';
+const EMAIL_IS_NOT_CONFIRMED =
+  'لم يتم تأكيد البريد الإلكتروني, الرجاء التحقق من اليريد ،الإلكتروني مرة أخرى';
 const DELETE_FAILED = 'فشلت عملية الحذف';
 const UPDATE_FAILED = 'فشلت عملية التعديل';
 
@@ -31,9 +32,9 @@ const LOGIN = 'تم تسجيل الدخول بنجاح';
 const DELETE_FEEDBACK = 'تم حذف التعليق بنجاح';
 // Authentication tokens
 const ADMIN_TOKEN =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIxIiwiZW1haWwiOiJtb2hhbW1lZEBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NzczNjU1MzEsImV4cCI6MTY3ODIyOTUzMX0.0CAr66OJZfkoBmW_x_o4sjGWzZ1TkPkudhs0e-V3Zrs';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIxIiwiZW1haWwiOiJtb2hhbW1lZEBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2Nzg1NDM2MzUsImV4cCI6MTY3OTQwNzYzNX0.LjZ73VMWkIm1ogUOZRpCIQj4hEMuu0mS7aYxIOKXl_w';
 const STUDENT_TOKEN =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyIiwiZW1haWwiOiJzYWlmQGdtYWlsLmNvbSIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNjc3MzY2ODcxLCJleHAiOjE2NzgyMzA4NzF9.5nej89I_ZfLaH7HhqYpYX6NtM3T55eOAlrwuphcVo8M';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyIiwiZW1haWwiOiJzYWlmQGdtYWlsLmNvbSIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNjc4NTQzNzE3LCJleHAiOjE2Nzk0MDc3MTd9.0ArmvD60cLAg9REPZxCv1pBBLJiXRFmrzl8wRK1OPiw';
 const VERIFICATION_TOKEN = 'something';
 
 export {

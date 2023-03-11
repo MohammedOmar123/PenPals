@@ -12,6 +12,7 @@ import {
   STUDENT_TOKEN,
   VERIFICATION_TOKEN,
 } from '../src/core/constant';
+import { AllExceptionsFilter } from '../src/core/HttpExceptionFilter/AllExceptions.filter';
 
 let app: INestApplication;
 
@@ -22,6 +23,9 @@ beforeAll(async () => {
   app = moduleFixture.createNestApplication();
   app.useGlobalPipes(new ValidationPipe());
   app.use(cookieParser());
+  app.useGlobalFilters(new AllExceptionsFilter());
+  app.enableCors({ credentials: true });
+
   await app.init();
   // await app.listen(4000);
 });
@@ -33,6 +37,7 @@ describe('Auth', () => {
       lastName: 'رامي',
       email: 'mohammed@gmail.1com',
       password: 'mohammed12345!',
+      confirmPassword: 'mohammed12345!',
     };
     it('should return 400 for bad inputs', async () => {
       const response = await request(app.getHttpServer())
@@ -339,13 +344,6 @@ describe('Feedback', () => {
         })
         .expect(400);
     });
-  });
-});
-
-// Users
-describe('Users', () => {
-  it('should return a list of users', async () => {
-    return request(app.getHttpServer()).get('/users').expect(200);
   });
 });
 

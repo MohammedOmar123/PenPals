@@ -31,8 +31,9 @@ export class AuthService {
 
   async signup(dto: SignupDto) {
     try {
-      const { email, password } = dto;
-
+      const { email, password, confirmPassword } = dto;
+      if (password !== confirmPassword)
+        throw new BadRequestException('Passwords must be matched');
       const isEmailExist = await this.userRepository.findOne({
         where: { email },
       });
@@ -86,10 +87,29 @@ export class AuthService {
 
     const user = await this.userRepository.findOne({
       where: { email },
+      attributes: [
+        'id',
+        'firstName',
+        'lastName',
+        'email',
+        'image',
+        'role',
+        'isConfirmed',
+        'password',
+      ],
+      raw: true,
     });
 
     if (!user) throw new ForbiddenException(INVALID_CREDENTIALS);
-    if (!user.isConfirmed) throw new EmailNotConfirmedException();
+    if (!user.isConfirmed) {
+      const verifyToken = await this.generateToken(
+        user.id,
+        user.email,
+        user.role,
+      );
+      this.emailServices.sendMail(email, verifyToken);
+      throw new EmailNotConfirmedException();
+    }
 
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) throw new ForbiddenException(INVALID_CREDENTIALS);
@@ -99,7 +119,9 @@ export class AuthService {
       user.email,
       user.role,
     );
-    return accessToken;
+
+    const { password: userPassword, isConfirmed, ...rest } = user;
+    return { accessToken, rest };
   }
 
   async generateToken(id: number, email: string, role: string) {
