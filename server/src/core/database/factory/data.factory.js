@@ -108,6 +108,25 @@ const generateComments = (num) => {
   return comments;
 };
 
+const generateNotifications = (num) => {
+  const notifications = [];
+  const types = ['write', 'update'];
+  const booleanValue = [false, true];
+  for (let i = 0; i < num; i++) {
+    Math.floor(Math.random() * 2) + 1;
+    const notification = {
+      type: types[Math.round(Math.random())], //
+      seen: booleanValue[Math.round(Math.random())],
+      userId: i + 1,
+      postId: i + 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    notifications.push(notification);
+  }
+  return notifications;
+};
+
 module.exports = {
   generateUsers,
   generateProjects,
@@ -116,4 +135,5 @@ module.exports = {
   generateUsersProject,
   generateFeedback,
   generateComments,
+  generateNotifications,
 };

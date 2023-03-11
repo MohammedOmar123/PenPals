@@ -12,6 +12,7 @@ import {
   STUDENT_TOKEN,
   VERIFICATION_TOKEN,
 } from '../src/core/constant';
+import { AllExceptionsFilter } from '../src/core/HttpExceptionFilter/AllExceptions.filter';
 
 let app: INestApplication;
 
@@ -22,6 +23,9 @@ beforeAll(async () => {
   app = moduleFixture.createNestApplication();
   app.useGlobalPipes(new ValidationPipe());
   app.use(cookieParser());
+  app.useGlobalFilters(new AllExceptionsFilter());
+  app.enableCors({ credentials: true });
+
   await app.init();
   // await app.listen(4000);
 });

@@ -28,6 +28,8 @@
     "undo:all:migrations": "npx sequelize-cli db:migrate:undo:all",
     "test:seed": "cross-env NODE_ENV=test npx sequelize-cli db:seed:all",
     "test:undo:seed": "cross-env NODE_ENV=test npx sequelize-cli db:seed:undo:all",
+    "build:db":"npx sequelize-cli db:migrate:undo:all && npx sequelize-cli db:migrate",
+    "build:seed":"npx sequelize-cli db:seed:undo:all && npx sequelize-cli db:seed:all",
     "seed": "npx sequelize-cli db:seed:all",
     "undo:seed": "npx sequelize-cli db:seed:undo:all"
   },

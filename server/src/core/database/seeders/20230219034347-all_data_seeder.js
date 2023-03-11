@@ -7,6 +7,7 @@ const {
   generateUsersProject,
   generateFeedback,
   generateComments,
+  generateNotifications,
 } = require('../factory/data.factory');
 
 const insertData = async (queryInterface) => {
@@ -19,7 +20,7 @@ const insertData = async (queryInterface) => {
     const usersProject = generateUsersProject(10);
     const feedbacks = generateFeedback(10);
     const comments = generateComments(10);
-
+    const notifications = generateNotifications(8);
     await queryInterface.bulkInsert(
       'Users',
       [
@@ -59,6 +60,9 @@ const insertData = async (queryInterface) => {
     });
     await queryInterface.bulkInsert('Feedbacks', feedbacks, { transaction });
     await queryInterface.bulkInsert('Comments', comments, { transaction });
+    await queryInterface.bulkInsert('Notifications', notifications, {
+      transaction,
+    });
 
     await transaction.commit();
   } catch (error) {
