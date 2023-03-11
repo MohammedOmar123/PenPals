@@ -37,6 +37,7 @@ describe('Auth', () => {
       lastName: 'رامي',
       email: 'mohammed@gmail.1com',
       password: 'mohammed12345!',
+      confirmPassword: 'mohammed12345!',
     };
     it('should return 400 for bad inputs', async () => {
       const response = await request(app.getHttpServer())

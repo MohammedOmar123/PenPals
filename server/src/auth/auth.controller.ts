@@ -1,7 +1,7 @@
 import { Controller, Post, Body, Query, Get, Res } from '@nestjs/common';
 import { Response } from 'express';
 
-import { LOGOUT, LOGIN } from '../core/constant';
+import { LOGOUT } from '../core/constant';
 import { AuthService } from './auth.service';
 import { SignupDto, SignInDto, VerifyDto, ResendEmailDto } from './dto';
 import { EmailServices } from './email.service';
@@ -20,11 +20,11 @@ export class AuthController {
 
   @Post('sign-in')
   async login(@Body() dto: SignInDto, @Res() res: Response) {
-    const token = await this.authService.sigIn(dto);
+    const data = await this.authService.sigIn(dto);
     res
-      .cookie('token', token, { httpOnly: true })
+      .cookie('token', data.accessToken, { httpOnly: true })
       .status(201)
-      .json({ message: LOGIN });
+      .json(data.rest);
   }
 
   @Get('verify')

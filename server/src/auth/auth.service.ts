@@ -19,6 +19,7 @@ import {
   INVALID_EMAIL,
   INVALID_CREDENTIALS,
 } from '../core/constant';
+import * as _ from 'lodash';
 
 @Injectable()
 export class AuthService {
@@ -31,8 +32,9 @@ export class AuthService {
 
   async signup(dto: SignupDto) {
     try {
-      const { email, password } = dto;
-
+      const { email, password, confirmPassword } = dto;
+      if (password !== confirmPassword)
+        throw new BadRequestException('Passwords must be matched');
       const isEmailExist = await this.userRepository.findOne({
         where: { email },
       });
@@ -86,6 +88,7 @@ export class AuthService {
 
     const user = await this.userRepository.findOne({
       where: { email },
+      raw: true,
     });
 
     if (!user) throw new ForbiddenException(INVALID_CREDENTIALS);
@@ -99,7 +102,16 @@ export class AuthService {
       user.email,
       user.role,
     );
-    return accessToken;
+
+    const rest = _.omit(user, [
+      'password',
+      'createdAt',
+      'updatedAt',
+      'isConfirmed',
+      'verifyToken',
+    ]);
+
+    return { accessToken, rest };
   }
 
   async generateToken(id: number, email: string, role: string) {
