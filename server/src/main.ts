@@ -10,7 +10,7 @@ import { AllExceptionsFilter } from './core/HttpExceptionFilter';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(compression());
-  app.enableCors();
+  app.enableCors({ credentials: true });
   app.setGlobalPrefix('api/v1/');
   app.useGlobalFilters(new AllExceptionsFilter());
   app.useGlobalPipes(new ValidationPipe());
