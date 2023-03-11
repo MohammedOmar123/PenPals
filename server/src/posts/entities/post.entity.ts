@@ -11,7 +11,7 @@ import {
 
 import { User } from '../../users/entities';
 import { Comment } from '../../comments/entities';
-import { Notification } from '../../notifications/entities/notification.entity';
+import { Notification } from '../../notification/entities/notification.entity';
 
 @Table
 export class Post extends Model<Post> {
@@ -38,9 +38,9 @@ export class Post extends Model<Post> {
   @BelongsTo(() => User)
   user: User;
 
-  @HasMany(() => Comment)
-  comments: Comment[];
-
   @HasMany(() => Notification)
   notifications: Notification[];
+
+  @HasMany(() => Comment)
+  comments: Comment[];
 }

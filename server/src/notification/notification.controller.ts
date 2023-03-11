@@ -11,7 +11,7 @@ import {
   CacheTTL,
   UseGuards,
 } from '@nestjs/common';
-import { NotificationsService } from './notifications.service';
+import { NotificationService } from './notification.service';
 import { CreateNotificationDto } from './dto/create-notification.dto';
 import { Roles } from '../auth/decorators';
 import { Role } from '../auth/enums/role.enum';
@@ -24,8 +24,8 @@ import { ParamValidationPipe } from 'src/core/pipes/ParamValidation.pipe';
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('notifications')
 @UseInterceptors(CacheInterceptor)
-export class NotificationsController {
-  constructor(private readonly notificationsService: NotificationsService) {}
+export class NotificationController {
+  constructor(private readonly notificationsService: NotificationService) {}
 
   @Roles(Role.Student)
   @UseGuards(JwtAuthGuard, RolesGuard)
@@ -34,8 +34,6 @@ export class NotificationsController {
     @GetUser() { userId }: { userId: string },
     @Body() dto: CreateNotificationDto,
   ) {
-    console.log(typeof userId);
-
     return this.notificationsService.create(dto, userId);
   }
 
@@ -56,8 +54,6 @@ export class NotificationsController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Patch(':id')
   update(@Param('id', ParamValidationPipe) id: number) {
-    console.log(id);
-
     return this.notificationsService.update(id);
   }
 
