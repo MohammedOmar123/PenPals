@@ -87,27 +87,13 @@ export class AuthService {
 
     const user = await this.userRepository.findOne({
       where: { email },
-      attributes: [
-        'id',
-        'firstName',
-        'lastName',
-        'email',
-        'image',
-        'role',
-        'isConfirmed',
-        'password',
-      ],
+      attributes: { exclude: ['createdAt', 'updatedAt'] },
       raw: true,
     });
 
     if (!user) throw new ForbiddenException(INVALID_CREDENTIALS);
     if (!user.isConfirmed) {
-      const verifyToken = await this.generateToken(
-        user.id,
-        user.email,
-        user.role,
-      );
-      this.emailServices.sendMail(email, verifyToken);
+      this.emailServices.sendMail(email, user.verifyToken);
       throw new EmailNotConfirmedException();
     }
 
@@ -120,7 +106,7 @@ export class AuthService {
       user.role,
     );
 
-    const { password: userPassword, isConfirmed, ...rest } = user;
+    const { password: userPassword, isConfirmed, verifyToken, ...rest } = user;
     return { accessToken, rest };
   }
 
