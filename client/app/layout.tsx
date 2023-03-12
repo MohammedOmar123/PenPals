@@ -3,23 +3,18 @@ import "./globals.css";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Header from "@/components/Header";
 import AuthContainer from "@/components/Auth/AuthContainer";
-import { useEffect, useState } from "react";
 import classNames from "classnames";
+import themeStore from "@/store/ThemeStore";
+import { useEffect } from "react";
+import { observer } from "mobx-react-lite";
 
 const queryClient = new QueryClient();
 
 function RootLayout({ children }: { children: React.ReactNode }) {
-  // state
-  const [isDark,setIsDark] = useState(false);
+  const { isDark } = themeStore;
 
-  useEffect(() => {
-    const isDark = localStorage.getItem("isDark") === "true";
-    setIsDark(isDark);
-  })
   return (
-    <html lang="ar" className={classNames({
-      "dark": isDark
-    })}>
+    <html lang="ar" className={classNames({ dark: isDark })}>
       {/*
         <head /> will contain the components returned by the nearest parent
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
@@ -36,4 +31,4 @@ function RootLayout({ children }: { children: React.ReactNode }) {
     </html>
   );
 }
-export default RootLayout;
+export default observer(RootLayout);

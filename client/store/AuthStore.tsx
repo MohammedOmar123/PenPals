@@ -8,22 +8,23 @@ class AuthStore {
   constructor() {
     makeObservable(this, {
       user: observable,
-      isAuth: computed,
+      fullName: computed,
       setUser: action,
       clearUser: action,
     });
   }
 
-  public setUser(user: IUser) {
+  public setUser = (user: IUser) => {
     this.user = user;
   }
 
-  public clearUser() {
+  public clearUser = () => {
     this.user = null;
   }
 
-  public get isAuth() {
-    return !!this.user;
+
+  public get fullName(){
+    return `${this.user?.firstName} ${this.user?.lastName}`
   }
 }
 

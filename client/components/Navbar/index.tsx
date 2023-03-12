@@ -11,18 +11,31 @@ import { ISignInHeaderProps } from "@/interfaces/props/ISignInHeader";
 import { arabicRegister, arabicSignin, arabicSignout } from "@/utils/constants";
 import { useRouter } from "next/navigation";
 import { observer } from "mobx-react-lite";
+import { useSignout } from "@/hooks/auth.hook";
+import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
+import themeStore from "@/store/ThemeStore";
 
 const linkClassName = "mr-8 main-text-color-light hover:text-gray-900";
 
-// { user, onSignout }: ISignInHeaderProps
-const SignInHeader = ({ user }: ISignInHeaderProps) => (
-  <UserInfo
-    username="مرحباً مصطفى"
-    image={userImg}
-    dir="ltr"
-    imgClassName="w-12 h-12"
-  />
-);
+const SignInHeader = ({ user }: ISignInHeaderProps) => {
+  const { mutateAsync: signout } = useSignout();
+  const handleSignout = async () => {
+    await signout({});
+  };
+  return (
+    <div className="flex">
+      <UserInfo
+        username={`مرحبا ${authStore.fullName}`}
+        image={user.image || userImg}
+        dir="ltr"
+        imgClassName="w-12 h-12"
+      />
+      <Button className="bg-primary text-white" onClick={handleSignout}>
+        {arabicSignout.signout}
+      </Button>
+    </div>
+  );
+};
 
 const SignOutHeader = () => {
   const router = useRouter();
@@ -47,14 +60,14 @@ const SignOutHeader = () => {
 
 const Navbar = () => {
   const user = authStore.user;
-  const router = useRouter();
+  const { isDark, toggleTheme } = themeStore;
 
   return (
-    <nav className="text-gray-600 body-font px-[27px] shadow-light">
-      <div className="container  flex justify-around flex-wrap p-5 flex-col md:flex-row items-center">
+    <nav className="bg-secondary-light dark:bg-secondary-dark body-font px-[27px] shadow-light">
+      <div className="container  flex justify-between flex-wrap p-5 flex-col md:flex-row items-center">
         <Link
-          href="#"
-          className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
+          href="/"
+          className="flex title-font font-medium items-center text-theme-primary-light dark:text-theme-primary-light mb-4 md:mb-0"
         >
           <Image src={logo} alt="logo" />
           <span className="ml-3 font-bold text-2xl main-text-color-light">
@@ -62,19 +75,17 @@ const Navbar = () => {
           </span>
         </Link>
 
-        <div className="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
-          <Link href="#" className={linkClassName}>
-            الصفحة الرئيسية
-          </Link>
-          <Link href="#" className={linkClassName}>
-            الآراء
-          </Link>
-          <Link href="#" className={linkClassName}>
-            من نحن؟
-          </Link>
+        <div className="flex gap-2">
+          <Button
+            className="!rounded-full bg-white !px-2 !py-2 shadow-md"
+            onClick={toggleTheme}
+          >
+            {
+              isDark? <SunIcon className="w-6 h-6 text-yellow-500"/> : <MoonIcon className="w-6 h-6 text-[black]"/>
+            }
+          </Button>
+          {user ? <SignInHeader user={user} /> : <SignOutHeader />}
         </div>
-
-        {user ? <SignInHeader user={user} /> : <SignOutHeader />}
       </div>
     </nav>
   );
