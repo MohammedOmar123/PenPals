@@ -32,6 +32,63 @@ export const statistics: IStatisticsItem[] = [
   },
 ];
 
+export const arabicRegister = {
+  firstName: "الاسم الأول",
+  lastName: "الاسم الأخير",
+  email: "البريد الإلكتروني",
+  password: "كلمة المرور",
+  confirmPassword: "تأكيد كلمة المرور",
+  register: "تسجيل حساب",
+  login: "تسجيل الدخول",
+  alreadyHaveAccount: "لديك حساب بالفعل؟",
+  newAccount: "تسجيل حساب جديد",
+  validationMessages: {
+    requiredFirstName: "الرجاء إدخال الاسم الأول",
+    requiredLastName: "الرجاء إدخال الاسم الأخير",
+    requiredEmail: "الرجاء إدخال البريد الإلكتروني",
+    requiredPassword: "الرجاء إدخال كلمة المرور",
+    requiredConfirmPassword: "الرجاء إدخال تأكيد كلمة المرور",
+    invalidEmail: "البريد الإلكتروني غير صحيح",
+    invalidPassword: "كلمة المرور غير صحيحة",
+    invalidConfirmPassword: "تأكيد كلمة المرور غير صحيح",
+    passwordNotMatch: "كلمة المرور غير متطابقة",
+    minLengthPassword: "كلمة المرور يجب أن تحتوي على 6 أحرف على الأقل",
+  },
+};
+export const arabicSignin = {
+  email: "البريد الإلكتروني",
+  password: "كلمة المرور",
+  login: "تسجيل الدخول",
+  forgotPassword: "نسيت كلمة المرور؟",
+  newAccount: "تسجيل حساب جديد",
+  notHaveAccount: " ليس لديك حساب بالفعل؟",
+  validationMessages: {
+    requiredEmail: "الرجاء إدخال البريد الإلكتروني",
+    requiredPassword: "الرجاء إدخال كلمة المرور",
+    invalidEmail: "البريد الإلكتروني غير صحيح",
+    invalidPassword: "كلمة المرور غير صحيحة",
+  },
+};
+export const arabicSignout= {
+  signout: 'تسجيل خروج',
+  title: "هل أنت متأكد؟",
+  message: "هل تريد بالتأكيد تسجيل الخروج؟",
+  yes: "نعم",
+  no: "لا",
+}
+export const arabicWaitVerified = {
+  title: "رسالة التحقق",
+  message:
+    "نحن الان في انتظار أن تنقر على رابط التأكيد الذي قمنا بإرساله لك على بريدك الإلكتروني حتى تتمكن من تسجيل الدخول بواسطته",
+  login: "تسجيل الدخول",
+  notReceived: "لم استلم رسالة تحقق؟",
+  clickHere: "انقر هنا",
+};
+
+// query keys
+export const queryKeys = {
+  me: 'me',
+}
 
 export const notifications: INotificationsItem[] = [
   {
@@ -39,27 +96,27 @@ export const notifications: INotificationsItem[] = [
     image: "/images/userImg.png",
     status: "read",
     postId: 1,
-    type:"create"
+    type: "create",
   },
   {
     username: "سارة",
     image: "/images/userImg.png",
     status: "unread",
     postId: 3,
-    type:"update"
+    type: "update",
   },
   {
     username: "سارة",
     image: "/images/userImg.png",
     status: "read",
     postId: 3,
-    type:"create"
+    type: "create",
   },
   {
     username: "سارة",
     image: "/images/userImg.png",
     status: "unread",
     postId: 3,
-    type:"update"
-  }
+    type: "update",
+  },
 ];

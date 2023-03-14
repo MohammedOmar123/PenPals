@@ -1,7 +1,5 @@
-import React from "react";
+import React, { HTMLProps } from "react";
 
-export interface IButton{
-  children: React.ReactNode;
-  className: string;
-  onClick: ()=> void;
+export interface IButton extends HTMLProps<HTMLButtonElement> {
+  type?: "button" | "submit" | "reset";
 }
