@@ -44,13 +44,13 @@ const SigninForm = () => {
     <>
       <div
         className={classNames(
-          "w-[90%] md:w-[35rem] my-5 mx-auto shadow-light px-6 md:px-10 py-10 flex flex-col gap-8 rounded-md bg-secondary-light dark:bg-secondary-dark",
+          "w-[90%] md:w-[35rem] my-5 mx-auto shadow-light dark:shadow-dark px-6 md:px-10 py-10 flex flex-col gap-8 rounded-md bg-secondary-light dark:bg-secondary-dark",
           {
             "parent-loading": isLoading,
           }
         )}
       >
-        <h1 className="text-2xl font-bold text-primary text-center mb-4">
+        <h1 className="text-2xl font-bold text-third-dark dark:text-third-light text-center mb-4">
           {arabicSignin.login}
         </h1>
         {isLoading && <Loading />}
@@ -79,12 +79,15 @@ const SigninForm = () => {
               />
               <div className="flex text-sm mt-5">
                 <p className="text-light-primary">
-                  <span>{arabicSignin.notHaveAccount} </span>
+                  <span className="dark:text-third-light">
+                    {arabicSignin.notHaveAccount}
+                  </span>
                   <button
                     type="button"
                     onClick={() => {
                       router.push("/register");
                     }}
+                    className="text-primary"
                   >
                     {arabicSignin.newAccount}
                   </button>
@@ -92,7 +95,7 @@ const SigninForm = () => {
               </div>
               <button
                 type="submit"
-                className=" text-primary w-fit py-2 px-4 rounded-lg shadow-drop"
+                className="text-white text-[0.8rem] w-fit py-2 px-4 rounded-lg shadow-drop bg-primary"
               >
                 {arabicSignin.login}
               </button>

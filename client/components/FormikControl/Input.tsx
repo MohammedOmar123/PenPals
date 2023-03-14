@@ -31,7 +31,15 @@ const Input = ({
           {label}
         </label>
       )}
-      <Field id={id} name={name} className={classNames("shadow-inner px-4 py-2 w-full rounded-lg placeholder:text-light-primary outline-none",className)} {...rest} />
+      <Field
+        id={id}
+        name={name}
+        className={classNames(
+          "px-4 py-2 w-full text-third-dark dark:text-third-light rounded-lg placeholder:text-primary outline outline-1 outline-primary bg-inherit placeholder:text-[0.8rem]",
+          className
+        )}
+        {...rest}
+      />
       <ErrorMessage
         name={name}
         render={(msg) => (

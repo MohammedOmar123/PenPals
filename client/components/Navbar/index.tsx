@@ -43,14 +43,14 @@ const SignOutHeader = () => {
     <div>
       <Button
         onClick={() => router.push("/login")}
-        className="bg-text-dark text-light"
+        className="bg-text-dark text-primary outline outline-1 outline-primary text-[0.8rem]"
       >
         {arabicSignin.login}
       </Button>
 
       <Button
         onClick={() => router.push("/register")}
-        className="bg-primary text-white"
+        className="bg-primary text-white text-[0.8rem]"
       >
         {arabicRegister.register}
       </Button>
@@ -63,30 +63,28 @@ const Navbar = () => {
   const { isDark, toggleTheme } = themeStore;
 
   return (
-    <nav className="bg-secondary-light dark:bg-secondary-dark body-font px-[27px] shadow-light">
-      <div className="container  flex justify-between flex-wrap p-5 flex-col md:flex-row items-center">
+    <nav className="bg-secondary-light dark:bg-secondary-dark body-font px-[27px] shadow-light dark:shadow-dark container flex justify-between flex-wrap p-5 flex-col md:flex-row items-center">
         <Link
           href="/"
-          className="flex title-font font-medium items-center text-theme-primary-light dark:text-theme-primary-light mb-4 md:mb-0"
+          className="flex title-font font-medium items-center text-theme-primary-light dark:text-theme-primary-dark mb-4 md:mb-0"
         >
           <Image src={logo} alt="logo" />
-          <span className="ml-3 font-bold text-2xl main-text-color-light">
-            بالعربية نرتقي{" "}
-          </span>
+          <span className="ml-3 font-bold text-xl">بالعربية نرتقي </span>
         </Link>
 
         <div className="flex gap-2">
           <Button
-            className="!rounded-full bg-white !px-2 !py-2 shadow-md"
+            className="!rounded-full bg-white !px-2 !py-2  dark:bg-third-dark"
             onClick={toggleTheme}
           >
-            {
-              isDark? <SunIcon className="w-6 h-6 text-yellow-500"/> : <MoonIcon className="w-6 h-6 text-[black]"/>
-            }
+            {isDark ? (
+              <SunIcon className="w-6 h-6 text-yellow-500" />
+            ) : (
+              <MoonIcon className="w-6 h-6 text-[black]" />
+            )}
           </Button>
           {user ? <SignInHeader user={user} /> : <SignOutHeader />}
         </div>
-      </div>
     </nav>
   );
 };

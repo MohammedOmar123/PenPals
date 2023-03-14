@@ -46,7 +46,7 @@ const RegisterForm = () => {
     <>
       <div
         className={classNames(
-          "w-[90%] md:w-[35rem] my-3 mx-auto shadow-light px-6 md:px-10 py-10 flex flex-col gap-8 rounded-md bg-secondary-light dark:bg-secondary-dark",
+          "w-[90%] md:w-[35rem] my-3 mx-auto shadow-light dark:shadow-dark px-6 md:px-10 py-10 flex flex-col gap-8 rounded-md bg-secondary-light dark:bg-secondary-dark",
           {
             "parent-loading": isLoading,
           }
@@ -99,7 +99,7 @@ const RegisterForm = () => {
                 placeholder={arabicRegister.confirmPassword}
               />
               <div className="flex text-sm mt-5">
-                <p className="text-light-primary">
+                <p className="text-third-dark dark:text-third-light">
                   {arabicRegister.alreadyHaveAccount}
                 </p>
                 <Link href="/login" className="text-primary mr-1">
@@ -108,7 +108,7 @@ const RegisterForm = () => {
               </div>
               <button
                 type="submit"
-                className=" text-primary w-fit py-2 px-4 rounded-lg shadow-drop"
+                className=" text-white text-[0.8rem] w-fit py-2 px-4 rounded-lg shadow-drop bg-primary"
                 disabled={formik.isSubmitting}
               >
                 {arabicRegister.register}
