@@ -9,10 +9,10 @@ const AuthContainer = ({ children }: IAuthContainerProps) => {
   // for get user/me
   const { isLoading } = useGetUser();
 
-  return <div>
+  return <main>
     {/* {isLoading && <Overlay />} */}
     {children}
-    </div>;
+    </main>;
 };
 
 export default AuthContainer;

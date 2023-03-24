@@ -17,7 +17,7 @@ module.exports = {
         dark: "#A7D6E1",
       },
       secondary:{
-        light: "#FFFFFF",
+        light: "#EBEEF1",
         dark: "#202020",
       },
       third:{
@@ -27,6 +27,7 @@ module.exports = {
       danger: "#E31A1A",
       success: "#27AE60",
       warning: "#DEAD00",
+      white: "#FFFFFF",
       info: "#2F80ED",
     },
     fontFamily: {

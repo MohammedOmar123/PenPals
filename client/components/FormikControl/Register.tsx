@@ -43,81 +43,79 @@ const RegisterForm = () => {
   };
 
   return (
-    <>
-      <div
-        className={classNames(
-          "w-[90%] md:w-[35rem] my-3 mx-auto shadow-light dark:shadow-dark px-6 md:px-10 py-10 flex flex-col gap-8 rounded-md bg-secondary-light dark:bg-secondary-dark",
-          {
-            "parent-loading": isLoading,
-          }
-        )}
+    <section
+      className={classNames(
+        "w-[90%] md:w-[35rem] my-3 mx-auto shadow-light dark:shadow-dark px-6 md:px-10 py-10 flex flex-col gap-8 rounded-md bg-white dark:bg-secondary-dark",
+        {
+          "parent-loading": isLoading,
+        }
+      )}
+    >
+      <h1 className="text-2xl font-bold text-primary text-center mb-4">
+        {arabicRegister.newAccount}
+      </h1>
+      {isLoading && <Loading />}
+      {isError && (
+        <div className="text-danger">{error?.response?.data?.message}</div>
+      )}
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={onSubmit}
       >
-        <h1 className="text-2xl font-bold text-primary text-center mb-4">
-          {arabicRegister.newAccount}
-        </h1>
-        {isLoading && <Loading />}
-        {isError && (
-          <div className="text-danger">{error?.response?.data?.message}</div>
+        {(formik) => (
+          <Form className="flex flex-col gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <FormikControl
+                control="input"
+                type="text"
+                name="firstName"
+                placeholder={arabicRegister.firstName}
+              />
+              <FormikControl
+                control="input"
+                type="text"
+                name="lastName"
+                placeholder={arabicRegister.lastName}
+              />
+            </div>
+            <FormikControl
+              control="input"
+              type="email"
+              name="email"
+              placeholder={arabicRegister.email}
+            />
+            <FormikControl
+              control="input"
+              type="password"
+              name="password"
+              placeholder={arabicRegister.password}
+            />
+            <FormikControl
+              control="input"
+              type="password"
+              name="confirmPassword"
+              placeholder={arabicRegister.confirmPassword}
+            />
+            <div className="flex text-sm mt-5">
+              <p className="text-third-dark dark:text-third-light">
+                {arabicRegister.alreadyHaveAccount}
+              </p>
+              <Link href="/login" className="text-primary mr-1">
+                {arabicRegister.login}
+              </Link>
+            </div>
+            <button
+              type="submit"
+              className=" text-white text-[0.8rem] w-fit py-2 px-4 rounded-lg shadow-drop bg-primary"
+              disabled={formik.isSubmitting}
+            >
+              {arabicRegister.register}
+            </button>
+          </Form>
         )}
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={onSubmit}
-        >
-          {(formik) => (
-            <Form className="flex flex-col gap-5">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <FormikControl
-                  control="input"
-                  type="text"
-                  name="firstName"
-                  placeholder={arabicRegister.firstName}
-                />
-                <FormikControl
-                  control="input"
-                  type="text"
-                  name="lastName"
-                  placeholder={arabicRegister.lastName}
-                />
-              </div>
-              <FormikControl
-                control="input"
-                type="email"
-                name="email"
-                placeholder={arabicRegister.email}
-              />
-              <FormikControl
-                control="input"
-                type="password"
-                name="password"
-                placeholder={arabicRegister.password}
-              />
-              <FormikControl
-                control="input"
-                type="password"
-                name="confirmPassword"
-                placeholder={arabicRegister.confirmPassword}
-              />
-              <div className="flex text-sm mt-5">
-                <p className="text-third-dark dark:text-third-light">
-                  {arabicRegister.alreadyHaveAccount}
-                </p>
-                <Link href="/login" className="text-primary mr-1">
-                  {arabicRegister.login}
-                </Link>
-              </div>
-              <button
-                type="submit"
-                className=" text-white text-[0.8rem] w-fit py-2 px-4 rounded-lg shadow-drop bg-primary"
-                disabled={formik.isSubmitting}
-              >
-                {arabicRegister.register}
-              </button>
-            </Form>
-          )}
-        </Formik>
-      </div>
-    </>
+      </Formik>
+    </section>
   );
 };
 

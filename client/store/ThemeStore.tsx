@@ -14,7 +14,6 @@ class ThemeStore {
 
   public toggleTheme = () => {
     this.isDark = !this.isDark;
-    console.log({localStorage})
     localStorage.setItem("isDark", this.isDark.toString());
   }
 }
