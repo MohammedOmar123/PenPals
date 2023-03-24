@@ -2,6 +2,7 @@ const colors = require("tailwindcss/colors");
 /** @type {import('tailwindcss').Config} */
 
 module.exports = {
+  darkMode: 'class',
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
     "./pages/**/*.{js,ts,jsx,tsx}",
@@ -11,19 +12,22 @@ module.exports = {
     colors: {
       ...colors,
       primary: "#0C8CE9",
-      "dark-primary": "#4967B5",
-      "text-dark": "#EEEEEE",
-      "text-light": "#202020",
-      "main-text-color-dark": '#A7D6E1',
-      "main-text-color-light": "#054782",
-      "bg-dark": "#202020",
-      "dark-line": "#333333",
-      "light-line": "#DDDDDD",
-      placeHolder: "9A9EA5",
-      white: "#FFFFFF",
+      'theme-primary':{
+        light: "#054782",
+        dark: "#A7D6E1",
+      },
+      secondary:{
+        light: "#EBEEF1",
+        dark: "#202020",
+      },
+      third:{
+        light: "#EEEEEE",
+        dark: "#333333",
+      },
       danger: "#E31A1A",
       success: "#27AE60",
       warning: "#DEAD00",
+      white: "#FFFFFF",
       info: "#2F80ED",
     },
     fontFamily: {

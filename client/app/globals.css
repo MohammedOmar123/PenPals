@@ -6,3 +6,10 @@
 *{
     font-family: 'Cairo', sans-serif;
 }
+
+@layer components {
+    .parent-loading  {
+        @apply relative opacity-50 pointer-events-none
+    }
+
+  }

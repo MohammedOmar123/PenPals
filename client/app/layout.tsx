@@ -1,28 +1,29 @@
-import Navbar from '@/components/Navbar'
-import './globals.css'
+"use client";
+import "./globals.css";
+import { QueryClient, QueryClientProvider } from "react-query";
+import Header from "@/components/Header";
+import AuthContainer from "@/components/Auth/AuthContainer";
+import classNames from "classnames";
+import themeStore from "@/store/ThemeStore";
+import { observer } from "mobx-react-lite";
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+const queryClient = new QueryClient();
+
+function RootLayout({ children }: { children: React.ReactNode }) {
+  const { isDark } = themeStore;
+
   return (
-    <html lang="ar">
-      {/*
-        <head /> will contain the components returned by the nearest parent
-        head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
+    <html lang="ar" className={classNames({ dark: isDark })}>
       <head />
-      <body dir='rtl' className='bg-darkest'>
-            <header>
-                <Navbar />
-            </header>
-            
-            <main>
-              {children}
-            </main>
-            
+      <body dir="rtl" className="bg-secondary-light dark:bg-[#121212] h-[100vh]">
+        <QueryClientProvider client={queryClient}>
+          <AuthContainer>
+            <Header />
+            {children}
+          </AuthContainer>
+        </QueryClientProvider>
       </body>
     </html>
-  )
+  );
 }
+export default observer(RootLayout);

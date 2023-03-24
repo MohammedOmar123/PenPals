@@ -1,8 +1,8 @@
-const LoginPage = () => {
-  return (
-    <main className="w-full">
-      <div>login page</div>
-    </main>
-  );
+import React from "react";
+import LoginFrom from "@/components/FormikControl/Login";
+
+const Login = () => {
+  return <LoginFrom />;
 };
-export default LoginPage;
+
+export default Login;

@@ -1,8 +1,9 @@
+"use client";
+import RegisterForm from "@/components/FormikControl/Register";
+import React from "react";
+
 const RegisterPage = () => {
-  return (
-    <main className="w-full">
-      <div>login page</div>
-    </main>
-  );
+  return <RegisterForm />;
 };
+
 export default RegisterPage;
