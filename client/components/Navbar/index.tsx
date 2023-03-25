@@ -63,7 +63,7 @@ const Navbar = () => {
   const { isDark, toggleTheme } = themeStore;
 
   return (
-    <nav className="bg-white dark:bg-secondary-dark body-font px-[27px] shadow-light dark:shadow-dark flex justify-between flex-wrap p-5 flex-col md:flex-row items-center">
+    <nav className="bg-white dark:bg-secondary-dark body-font px-[27px] py-[0.8rem] shadow-light dark:shadow-dark flex justify-between flex-wrap flex-col md:flex-row items-center">
       <Link
         href="/"
         className="flex title-font font-medium items-center text-theme-primary-light dark:text-theme-primary-dark mb-4 md:mb-0"

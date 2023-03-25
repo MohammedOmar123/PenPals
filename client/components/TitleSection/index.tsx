@@ -6,7 +6,7 @@ interface ITitleSectionProps {
   className?: string;
 }
 const TitleSection = ({ title, className }: ITitleSectionProps) => {
-  return <h2 className={classNames("text-title text-2xl font-bold", className)}>{title}</h2>;
+  return <h2 className={classNames("text-title text-xl font-bold dark:text-secondary-light", className)}>{title}</h2>;
 };
 
 export default TitleSection;

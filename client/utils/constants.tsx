@@ -1,11 +1,14 @@
 import { IStatisticsItem } from "@/interfaces/other/IStatisticsItem";
 import { INotificationsItem } from "@/interfaces/other/INotificationsItem";
+import { AcademicCapIcon, BookOpenIcon, CalendarIcon, UsersIcon } from "@heroicons/react/24/outline";
+
+const iconStyle = { color: "white", fontSize: "2rem", width: "2rem" };
 
 export const icons = {
-  user: "/icons/user.svg",
-  competition: "/icons/competition.svg",
-  post: "/icons/post.svg",
-  student: "/icons/student.svg",
+  student: <AcademicCapIcon style={{ ...iconStyle, color: "#B54949" }} />,
+  user: <UsersIcon style={{ ...iconStyle, color: "#49B58E" }} />,
+  competition: <CalendarIcon style={{ ...iconStyle, color: "#B349B5" }} />,
+  post: <BookOpenIcon style={{ ...iconStyle, color: "#49A2B5" }} />,
 };
 
 export const statistics: IStatisticsItem[] = [
@@ -94,29 +97,33 @@ export const notifications: INotificationsItem[] = [
   {
     username: "سارة",
     image: "/images/userImg.png",
-    status: "read",
+    status: true,
     postId: 1,
+    date: "منذ ساعة",
     type: "create",
   },
   {
     username: "سارة",
     image: "/images/userImg.png",
-    status: "unread",
+    status: true,
     postId: 3,
+    date: "منذ دقيقة",
     type: "update",
   },
   {
     username: "سارة",
     image: "/images/userImg.png",
-    status: "read",
+    status: false,
     postId: 3,
+    date: "منذ يوم",
     type: "create",
   },
   {
     username: "سارة",
     image: "/images/userImg.png",
-    status: "unread",
+    status: true,
     postId: 3,
+    date: "منذ 3 ساعات",
     type: "update",
   },
 ];
