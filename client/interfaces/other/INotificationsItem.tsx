@@ -1,7 +1,8 @@
 export interface INotificationsItem {
     username: string;
     image: string;
-    status: 'read' | 'unread';
+    status: boolean;
     postId: number;
+    date: string;
     type:   'create' | 'update'
 }
